@@ -1,22 +1,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Matt&#39;s WIP Blog</title>
+        <title>Posts on Matt&#39;s Networking Blog</title>
         <link>https://mattpetty.github.io/posts/</link>
-        <description>Recent content in Posts on Matt&#39;s WIP Blog</description>
+        <description>Recent content in Posts on Matt&#39;s Networking Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Thu, 16 Jun 2022 10:35:39 -0400</lastBuildDate>
+        <lastBuildDate>Fri, 17 Jun 2022 12:05:41 -0400</lastBuildDate>
         <atom:link href="https://mattpetty.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Examplepost</title>
-            <link>https://mattpetty.github.io/posts/examplepost/</link>
-            <pubDate>Thu, 16 Jun 2022 10:35:39 -0400</pubDate>
+            <title>Second Post - Image Testing</title>
+            <link>https://mattpetty.github.io/posts/2022-06-17_second_post/</link>
+            <pubDate>Fri, 17 Jun 2022 12:05:41 -0400</pubDate>
             
-            <guid>https://mattpetty.github.io/posts/examplepost/</guid>
-            <description>This is a test. Hello world!</description>
-            <content type="html"><![CDATA[<p>This is a test. Hello world!</p>
+            <guid>https://mattpetty.github.io/posts/2022-06-17_second_post/</guid>
+            <description>Second Post This is a post that&amp;rsquo;s intended to test inserting images into posts. Technical blogs aren&amp;rsquo;t overly helpful without some pretty pictures.
+See you next time!</description>
+            <content type="html"><![CDATA[<h3 id="second-post">Second Post</h3>
+<p>This is a post that&rsquo;s intended to test inserting images into posts. Technical blogs aren&rsquo;t overly helpful without some pretty pictures.</p>
+<p><img src="images/mpython.gif" alt="mytest1"></p>
+<p>See you next time!</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Hello World!</title>
+            <link>https://mattpetty.github.io/posts/2022-06-17_hello_world/</link>
+            <pubDate>Fri, 17 Jun 2022 11:57:30 -0400</pubDate>
+            
+            <guid>https://mattpetty.github.io/posts/2022-06-17_hello_world/</guid>
+            <description>Journey Into Blogging Hello world! This is the first test post on my blog.</description>
+            <content type="html"><![CDATA[<h1 id="journey-into-blogging">Journey Into Blogging</h1>
+<p>Hello world! This is the first test post on my blog.</p>
 ]]></content>
         </item>
         

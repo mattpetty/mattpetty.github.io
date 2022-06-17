@@ -1,5 +1,5 @@
 baseurl      = "https://mattpetty.github.io"
-title        = "Matt's Test Hugo Blog"
+title        = "Matt's Tech & Personal Blog"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10
@@ -21,7 +21,7 @@ publishDir   = "docs"
   enableSharingButtons = false
 
   # Metadata mostly used in document's head
-  description = "My new homepage or blog"
+  description = "Matt Petty's personal blog, with a focus on technical topics"
   keywords = "homepage, blog"
   images = [""]
 
@@ -32,14 +32,14 @@ publishDir   = "docs"
 
 [languages]
   [languages.en]
-    title = "Matt's WIP Blog"
-    subtitle = "A simple theme for Hugo"
+    title = "Matt's Networking Blog"
+    subtitle = "A tech-focused personal homepage"
     keywords = ""
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
     readOtherPosts = "Read other posts"
 
     [languages.en.params.logo]
-      logoText = "host mattpetty.net"
+      logoText = "mattpetty.github.io"
       logoHomeLink = "/"
     # or
     #
@@ -51,3 +51,4 @@ publishDir   = "docs"
     identifier = "blog"
     name       = "Blog"
     url        = "/posts"
+
