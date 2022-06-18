@@ -1,9 +1,16 @@
 baseurl      = "https://mattpetty.github.io"
-title        = "Matt's Tech & Personal Blog"
+title        = "Matt's Networking Blog"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10
+rssLimit     = 10
 publishDir   = "docs"
+
+[permalinks]
+  posts = '/:year/:month/:day/:title/'
+
+[author]
+  name            = "Matt Petty"
 
 [params]
   dateform        = "Jan 2, 2006"
@@ -12,10 +19,13 @@ publishDir   = "docs"
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "Powered by Hugo, GitHub Pages, and lots of coffee"
+  homeSubtitle = "A tech-focused personal homepage"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
+
+  # Dark Mode toggle button
+  enableThemeToggle = true
 
   # Enable sharing buttons, if you like
   enableSharingButtons = false
@@ -25,30 +35,68 @@ publishDir   = "docs"
   keywords = "homepage, blog"
   images = [""]
 
-[taxonomies]
-    category = "blog"
-    tag      = "tags"
-    series   = "series"
-
-[languages]
-  [languages.en]
-    title = "Matt's Networking Blog"
-    subtitle = "A tech-focused personal homepage"
-    keywords = ""
-    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
-    readOtherPosts = "Read other posts"
-
-    [languages.en.params.logo]
-      logoText = "mattpetty.github.io"
-      logoHomeLink = "/"
+  [params.logo]
+    logoText     = "mattpetty.github.io"
+    logoHomeLink = "/"
+    # Configure for a custom prompt mark
+    # logoMark     = ">"
+    # Set true to remove the logo cursor entirely.
+    # logoCursorDisabled = false
+    # Set to a valid CSS color to change the cursor in the logo.
+    # logoCursorColor    = "#67a2c9"
+    # Set to a valid CSS time value to change the animation duration, "0s" to disable.
+    # logoCursorAnimate  = "2s"
+    #
     # or
     #
     # path = "/img/your-example-logo.svg"
     # alt = "Your example logo alt text"
 
+  [params.portrait]
+    path     = "router_icon.png"
+    alt      = "Router Icon"
+    maxWidth = "150px"
+
+  [params.footer]
+    trademark = true
+    rss = true
+    copyright = false
+    author = true
+
+    # topText = ["banana penguin toaster", "test"]
+    bottomText = [
+      "Powered by <a href=\"http://gohugo.io\">Hugo</a>, <a href=\"https://pages.github.com\">GitHub Pages</a>, and lots of coffee"
+    ]
+
+  # Social icons
+  [[params.social]]
+    name = "twitter"
+    url  = "https://twitter.com/mpetty1"
+
+  [[params.social]]
+    name = "instagram"
+    url = "https://www.instagram.com/mpetty7052/"
+
+  [[params.social]]
+    name = "github"
+    url  = "https://github.com/mattpetty"
+
+  [[params.social]]
+    name = "linkedin"
+    url  = "https://www.linkedin.com/in/matt-petty-84221bb/"
+
+[taxonomies]
+    category = "blog"
+    tag      = "tags"
+    series   = "series"
+
+[menu]
   # And you can even create generic menu
   [[menu.main]]
     identifier = "blog"
     name       = "Blog"
     url        = "/posts"
-
+  # [[menu.main]]
+  #   identifier = "about"
+  #   name       = "About"
+  #   url        = "/about"
