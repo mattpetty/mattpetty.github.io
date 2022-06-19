@@ -5,8 +5,85 @@
         <description>Recent content in Posts on Matt&#39;s Networking Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Fri, 17 Jun 2022 12:05:41 -0400</lastBuildDate>
+        <lastBuildDate>Sat, 18 Jun 2022 21:59:23 -0400</lastBuildDate>
         <atom:link href="https://mattpetty.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Python&#39;s ipaddress Module</title>
+            <link>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</link>
+            <pubDate>Sat, 18 Jun 2022 21:59:23 -0400</pubDate>
+            
+            <guid>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</guid>
+            <description>Introduction Note: some familiarity and experience with Python is assumed for this article
+Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
+Importing Since ipaddress is part of the standard library, to utilize it, it&amp;rsquo;s as simple as starting a new Python script (or REPL) and doing:</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p><em>Note: some familiarity and experience with Python is assumed for this article</em></p>
+<p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
+<h2 id="importing">Importing</h2>
+<p>Since <strong>ipaddress</strong> is part of the standard library, to utilize it, it&rsquo;s as simple as starting a new Python script (or REPL) and doing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> ipaddress
+</span></span></code></pre></div><p>Once imported, this gives you access to a number of different classes that can (for example) test whether a given address falls within a given subnet, or if an IP address is valid IPv4.</p>
+<h2 id="so-how-do-i-use-it">So, how do I use it?</h2>
+<p>Sticking with IPv4 for now, let&rsquo;s review the three major &ldquo;classes&rdquo; you&rsquo;ll likely work with using <strong>ipaddress</strong>. Those three are:</p>
+<ul>
+<li><em>IPv4Address</em></li>
+<li><em>IPv4Interface</em></li>
+<li><em>IPv4Network</em></li>
+</ul>
+<h3 id="ipv4address">IPv4Address</h3>
+<p>The first, <em>IPv4Address</em>, is fairly self-explanatory, and accepts only individual IP addresses (no subnet/CIDR masks):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> ipaddress
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;86.75.30.9&#34;</span>)
+</span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;86.75.30.9&#39;</span>)
+</span></span></code></pre></div><p>So what good does this do?</p>
+<p>Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown trustworthiness. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the &ldquo;plain-text&rdquo; representation of any <strong>ipaddress</strong> object by calling the str() function on it):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sus_ip_list <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;86.75.30.9&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;dns.google&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;8.8.8.8&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;0.0.0.0/0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;172.16.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;192.0.2.42&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;198.51.100.42&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;203.0.113.42&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;would you like a toasted tea-cake?&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>valid_ip_list <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> maybe_ip <span style="color:#f92672">in</span> sus_ip_list:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    valid_ip <span style="color:#f92672">=</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(maybe_ip)
+</span></span><span style="display:flex;"><span>    valid_ip_list<span style="color:#f92672">.</span>append(str(valid_ip))
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">except</span> ipaddress<span style="color:#f92672">.</span>AddressValueError:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error: &#34;</span><span style="color:#e6db74">{</span>maybe_ip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; is not a valid host IPv4 address&#39;</span>)
+</span></span></code></pre></div><p>Running the above code produces the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>Error: <span style="color:#e6db74">&#34;dns.google&#34;</span> <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> a valid host IPv4 address
+</span></span><span style="display:flex;"><span>Error: <span style="color:#e6db74">&#34;0.0.0.0/0&#34;</span> <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> a valid host IPv4 address
+</span></span><span style="display:flex;"><span>Error: <span style="color:#e6db74">&#34;would you like a toasted tea-cake?&#34;</span> <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> a valid host IPv4 address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> valid_ip_list
+</span></span><span style="display:flex;"><span>[<span style="color:#e6db74">&#39;86.75.30.9&#39;</span>, <span style="color:#e6db74">&#39;8.8.8.8&#39;</span>, <span style="color:#e6db74">&#39;172.16.1.1&#39;</span>, <span style="color:#e6db74">&#39;192.0.2.42&#39;</span>, <span style="color:#e6db74">&#39;198.51.100.42&#39;</span>, <span style="color:#e6db74">&#39;203.0.113.42&#39;</span>]
+</span></span></code></pre></div><p>Additionally, there are some &ldquo;methods&rdquo; that allow you to determine what sort of IPv4 address you&rsquo;re dealing with - public, private, multicast, loopback, etc., or format it as a reverse pointer (PTR) DNS record:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;86.75.30.9&#34;</span>)<span style="color:#f92672">.</span>is_global
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;172.16.1.1&#34;</span>)<span style="color:#f92672">.</span>is_global
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;172.16.1.1&#34;</span>)<span style="color:#f92672">.</span>is_private
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;127.0.0.1&#34;</span>)<span style="color:#f92672">.</span>is_loopback
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;172.16.1.1&#34;</span>)<span style="color:#f92672">.</span>reverse_pointer
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;1.1.16.172.in-addr.arpa&#39;</span>
+</span></span></code></pre></div><h3 id="ipv4interface">IPv4Interface</h3>
+<p>Similarly, the <em>IPv4Interface</em> class accepts an IPv4 address, but it also allows you to also pass a subnet (CIDR) mask along with it, something frequently seen when dealing with network device interfaces (routers, switches, firewalls).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Interface(<span style="color:#e6db74">&#34;86.75.30.9/24&#34;</span>)
+</span></span><span style="display:flex;"><span>IPv4Interface(<span style="color:#e6db74">&#34;86.75.30.9/24&#34;</span>)
+</span></span></code></pre></div><p><em>To be continued&hellip;</em></p>
+]]></content>
+        </item>
         
         <item>
             <title>Second Post - Image Testing</title>
