@@ -22,7 +22,7 @@ publishDir   = "docs"
   # backgroundImage = "assets/images/background.jpg"
 
   # Subtitle for home
-  homeSubtitle = "A tech-focused personal homepage"
+  homeSubtitle = "A tech-focused blog about networking, Python, and automation, for the modern-day struggling network engineer."
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false

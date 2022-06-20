@@ -8,7 +8,7 @@ tags:
   - python
 ---
 ## Introduction
-*Note: some familiarity and experience with Python is assumed for this article*
+*(some familiarity and experience with Python is assumed for this article)*
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 
@@ -40,7 +40,7 @@ IPv4Address('86.75.30.9')
 
 So what good does this do?
 
-Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown trustworthiness. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the "plain-text" representation of any **ipaddress** object by calling the str() function on it):
+Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the "plain-text" representation of any **ipaddress** object by calling the *str()* function on it):
 
 ```python
 sus_ip_list = [
@@ -90,15 +90,6 @@ True
 True
 >>> ipaddress.IPv4Address("172.16.1.1").reverse_pointer
 '1.1.16.172.in-addr.arpa'
-```
-
-### IPv4Interface
-
-Similarly, the *IPv4Interface* class accepts an IPv4 address, but it also allows you to also pass a subnet (CIDR) mask along with it, something frequently seen when dealing with network device interfaces (routers, switches, firewalls).
-
-```python
->>> ipaddress.IPv4Interface("86.75.30.9/24")
-IPv4Interface("86.75.30.9/24")
 ```
 
 *To be continued...*

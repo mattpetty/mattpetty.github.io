@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matt Petty ">
-<meta name="description" content="Introduction Note: some familiarity and experience with Python is assumed for this article
+<meta name="description" content="Introduction (some familiarity and experience with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3&#43; installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 Importing Since ipaddress is part of the standard library, to utilize it, it&amp;rsquo;s as simple as starting a new Python script (or REPL) and doing:" />
 <meta name="keywords" content="homepage, blog, python" />
@@ -41,17 +41,17 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&amp
 
 
 <meta itemprop="name" content="Python&#39;s ipaddress Module">
-<meta itemprop="description" content="Introduction Note: some familiarity and experience with Python is assumed for this article
+<meta itemprop="description" content="Introduction (some familiarity and experience with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3&#43; installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 Importing Since ipaddress is part of the standard library, to utilize it, it&rsquo;s as simple as starting a new Python script (or REPL) and doing:"><meta itemprop="datePublished" content="2022-06-18T21:59:23-04:00" />
 <meta itemprop="dateModified" content="2022-06-18T21:59:23-04:00" />
-<meta itemprop="wordCount" content="432"><meta itemprop="image" content="https://mattpetty.github.io"/>
+<meta itemprop="wordCount" content="392"><meta itemprop="image" content="https://mattpetty.github.io"/>
 <meta itemprop="keywords" content="python," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://mattpetty.github.io"/>
 
 <meta name="twitter:title" content="Python&#39;s ipaddress Module"/>
-<meta name="twitter:description" content="Introduction Note: some familiarity and experience with Python is assumed for this article
+<meta name="twitter:description" content="Introduction (some familiarity and experience with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3&#43; installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 Importing Since ipaddress is part of the standard library, to utilize it, it&rsquo;s as simple as starting a new Python script (or REPL) and doing:"/>
 
@@ -59,7 +59,7 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
 
 
     <meta property="og:title" content="Python&#39;s ipaddress Module" />
-<meta property="og:description" content="Introduction Note: some familiarity and experience with Python is assumed for this article
+<meta property="og:description" content="Introduction (some familiarity and experience with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3&#43; installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 Importing Since ipaddress is part of the standard library, to utilize it, it&rsquo;s as simple as starting a new Python script (or REPL) and doing:" />
 <meta property="og:type" content="article" />
@@ -142,7 +142,7 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
           <circle cx="12" cy="12" r="10"></circle>
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        3 minutes
+        2 minutes
 
         
       </p>
@@ -166,7 +166,6 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
     <li><a href="#so-how-do-i-use-it">So, how do I use it?</a>
       <ul>
         <li><a href="#ipv4address">IPv4Address</a></li>
-        <li><a href="#ipv4interface">IPv4Interface</a></li>
       </ul>
     </li>
   </ul>
@@ -178,7 +177,7 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
 
       <div class="post-content">
         <h2 id="introduction">Introduction</h2>
-<p><em>Note: some familiarity and experience with Python is assumed for this article</em></p>
+<p><em>(some familiarity and experience with Python is assumed for this article)</em></p>
 <p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
 <h2 id="importing">Importing</h2>
 <p>Since <strong>ipaddress</strong> is part of the standard library, to utilize it, it&rsquo;s as simple as starting a new Python script (or REPL) and doing:</p>
@@ -197,7 +196,7 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;86.75.30.9&#34;</span>)
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;86.75.30.9&#39;</span>)
 </span></span></code></pre></div><p>So what good does this do?</p>
-<p>Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown trustworthiness. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the &ldquo;plain-text&rdquo; representation of any <strong>ipaddress</strong> object by calling the str() function on it):</p>
+<p>Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the &ldquo;plain-text&rdquo; representation of any <strong>ipaddress</strong> object by calling the <em>str()</em> function on it):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sus_ip_list <span style="color:#f92672">=</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;86.75.30.9&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;dns.google&#34;</span>,
@@ -237,10 +236,6 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;172.16.1.1&#34;</span>)<span style="color:#f92672">.</span>reverse_pointer
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;1.1.16.172.in-addr.arpa&#39;</span>
-</span></span></code></pre></div><h3 id="ipv4interface">IPv4Interface</h3>
-<p>Similarly, the <em>IPv4Interface</em> class accepts an IPv4 address, but it also allows you to also pass a subnet (CIDR) mask along with it, something frequently seen when dealing with network device interfaces (routers, switches, firewalls).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Interface(<span style="color:#e6db74">&#34;86.75.30.9/24&#34;</span>)
-</span></span><span style="display:flex;"><span>IPv4Interface(<span style="color:#e6db74">&#34;86.75.30.9/24&#34;</span>)
 </span></span></code></pre></div><p><em>To be continued&hellip;</em></p>
 
       </div>
@@ -267,7 +262,7 @@ Importing Since ipaddress is part of the standard library, to utilize it, it&rsq
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        432 Words
+        392 Words
       </p>
 
       <p>
