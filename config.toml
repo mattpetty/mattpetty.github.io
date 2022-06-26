@@ -56,8 +56,10 @@ publishDir   = "docs"
     # alt = "Your example logo alt text"
 
   [params.portrait]
-    path     = "router_icon.png"
-    alt      = "Router Icon"
+    # path     = "router_icon.png"
+    # alt      = "Router Icon"
+    path     = "logo2.png"
+    alt      = "Python Logo on Router Icon"
     maxWidth = "150px"
 
   [params.footer]
