@@ -8,9 +8,11 @@ tags:
   - python
 ---
 ## Introduction
-*(some familiarity and experience with Python is assumed for this article)*
+*(some familiarity with Python is assumed for this article)*
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
+
+The official documentation is [here](https://docs.python.org/3/library/ipaddress.html), but read on for a basic summary of this module and some helpful uses for it.
 
 ## Importing
 Since **ipaddress** is part of the standard library, to utilize it, it's as simple as starting a new Python script (or REPL) and doing:
@@ -25,8 +27,8 @@ Once imported, this gives you access to a number of different classes that can (
 
 Sticking with IPv4 for now, let's review the three major "classes" you'll likely work with using **ipaddress**. Those three are:
 - *IPv4Address*
-- *IPv4Interface*
 - *IPv4Network*
+- *IPv4Interface*
 
 ### IPv4Address
 
@@ -34,17 +36,30 @@ The first, *IPv4Address*, is fairly self-explanatory, and accepts only individua
 
 ```python
 >>> import ipaddress
->>> ipaddress.IPv4Address("86.75.30.9")
-IPv4Address('86.75.30.9')
+>>> ipaddress.IPv4Address("192.0.2.9")
+IPv4Address('192.0.2.9')
 ```
 
 So what good does this do?
 
-Imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the "plain-text" representation of any **ipaddress** object by calling the *str()* function on it):
+First, it allows you to use addition and subtraction to easily increase or decrease the IP address object:
+
+```python
+>>> ipaddress.IPv4Address("192.0.2.9")
+IPv4Address('192.0.2.9')
+>>> ipaddress.IPv4Address("192.0.2.9") + 1
+IPv4Address('192.0.2.10')
+>>> ipaddress.IPv4Address("192.0.2.9") - 8
+IPv4Address('192.0.2.1')
+>>> ipaddress.IPv4Address("192.0.2.9") + 33
+IPv4Address('192.0.2.42')
+```
+
+For another use case, imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the "plain-text" representation of any **ipaddress** object by calling the *str()* function on it):
 
 ```python
 sus_ip_list = [
-  "86.75.30.9",
+  "100.111.222.3",
   "dns.google",
   "8.8.8.8",
   "0.0.0.0/0",
@@ -74,13 +89,13 @@ Error: "0.0.0.0/0" is not a valid host IPv4 address
 Error: "would you like a toasted tea-cake?" is not a valid host IPv4 address
 
 >>> valid_ip_list
-['86.75.30.9', '8.8.8.8', '172.16.1.1', '192.0.2.42', '198.51.100.42', '203.0.113.42']
+['100.111.222.3', '8.8.8.8', '172.16.1.1', '192.0.2.42', '198.51.100.42', '203.0.113.42']
 ```
 
-Additionally, there are some "methods" that allow you to determine what sort of IPv4 address you're dealing with - public, private, multicast, loopback, etc., or format it as a reverse pointer (PTR) DNS record:
+Additionally, there are some attributes that allow you to determine what sort of IPv4 address you're dealing with - public, private, multicast, loopback, etc.; or format it as a reverse pointer (PTR) DNS record:
 
 ```python
->>> ipaddress.IPv4Address("86.75.30.9").is_global
+>>> ipaddress.IPv4Address("8.8.8.8").is_global
 True
 >>> ipaddress.IPv4Address("172.16.1.1").is_global
 False
@@ -92,4 +107,38 @@ True
 '1.1.16.172.in-addr.arpa'
 ```
 
-*To be continued...*
+### IPv4Network
+
+The next class, *IPv4Network*, differs from *IPv4Address* in that it requires a *subnet* (in CIDR form) as the input value, as opposed to a single IP address. This means that for the given subnet mask you're passing to *IPv4Network*, the corresponding IP address must be a network address (i.e. lowest of the subnet).
+
+```python
+>>> ipaddress.IPv4Network("192.0.2.0/24")
+IPv4Network('192.0.2.0/24')
+```
+
+Try to pass a subnet address that isn't the network address, and an exception will be raised:
+
+```python
+>>> ipaddress.IPv4Network("192.0.2.1/24")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.7/ipaddress.py", line 1536, in __init__
+    raise ValueError('%s has host bits set' % self)
+ValueError: 192.0.2.1/24 has host bits set
+```
+
+The *IPv4Network* class has all the attributes of the *IPv4Address* class, as well as a few more, many of which return an IPv4Address object, to get information like the subnet's network address (by itself), broadcast address, long-form subnet mask, host (wildcard) mask, etc.
+
+*(refer to the official docs for more; these are just a few examples)*
+
+```python
+>>> ipaddress.IPv4Network("192.0.2.0/24").network_address
+IPv4Address('192.0.2.0')
+>>> ipaddress.IPv4Network("192.0.2.0/24").broadcast_address
+IPv4Address('192.0.2.255')
+>>> ipaddress.IPv4Network("192.0.2.0/24").netmask
+IPv4Address('255.255.255.0')
+>>> ipaddress.IPv4Network("192.0.2.0/24").hostmask
+IPv4Address('0.0.0.255')
+```
+*Work in progress*

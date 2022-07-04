@@ -13,9 +13,9 @@
       <pubDate>Sat, 18 Jun 2022 21:59:23 -0400</pubDate>
       
       <guid>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</guid>
-      <description>Introduction (some familiarity and experience with Python is assumed for this article)
+      <description>Introduction (some familiarity with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
-Importing Since ipaddress is part of the standard library, to utilize it, it&amp;rsquo;s as simple as starting a new Python script (or REPL) and doing:</description>
+The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
     </item>
     
   </channel>

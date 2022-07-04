@@ -13,8 +13,8 @@
       <pubDate>Tue, 21 Jun 2022 20:45:03 -0400</pubDate>
       
       <guid>https://mattpetty.github.io/about/</guid>
-      <description>Hi! I&amp;rsquo;m Matt Petty, a network engineer in Knoxville, TN, with nearly 15 years of experience in non-profit healthcare IT. My primary experience is in the Cisco ecosystem, particulary ASA and Sourcefire Firepower Secure Firewall, and many other Cisco acronym soups (AnyConnect, ISE, IOS/NX-OS, WLC, even a little DNA and ACI).
-However, I&amp;rsquo;m also something of an Apple fanboy, a general Unix/Linux hobbyist, open-source curious, and a longtime &amp;ldquo;small computing&amp;rdquo; enthusiast (such as the ASUS Eee PC; Marvell Sheevaplug; Raspberry Pis; 1L computing; Ubiquiti ER-X; MikroTik mAP lite; to name just a few&amp;hellip;)</description>
+      <description>Hi! I&amp;rsquo;m Matt Petty, a network engineer in Knoxville, TN, with nearly 15 years of experience in healthcare IT.
+My IT career has spanned from the help desk, to desktop support, and for the last 10+ years, network engineering and security. My primary experience is in the Cisco ecosystem, particulary the Cisco ASA and Sourcefire Firepower Secure Firewall, and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI).</description>
     </item>
     
     <item>
@@ -23,9 +23,9 @@ However, I&amp;rsquo;m also something of an Apple fanboy, a general Unix/Linux h
       <pubDate>Sat, 18 Jun 2022 21:59:23 -0400</pubDate>
       
       <guid>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</guid>
-      <description>Introduction (some familiarity and experience with Python is assumed for this article)
+      <description>Introduction (some familiarity with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
-Importing Since ipaddress is part of the standard library, to utilize it, it&amp;rsquo;s as simple as starting a new Python script (or REPL) and doing:</description>
+The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
     </item>
     
     <item>
