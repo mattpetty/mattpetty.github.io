@@ -8,6 +8,7 @@ tags:
   - python
 ---
 ## Introduction
+
 *(some familiarity with Python is assumed for this article)*
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
@@ -15,6 +16,7 @@ Since version 3.3 (released September 2012), Python has included an **ipaddress*
 The official documentation is [here](https://docs.python.org/3/library/ipaddress.html), but read on for a basic summary of this module and some helpful uses for it.
 
 ## Importing
+
 Since **ipaddress** is part of the standard library, to utilize it, it's as simple as starting a new Python script (or REPL) and doing:
 
 ```python
@@ -25,7 +27,8 @@ Once imported, this gives you access to a number of different classes that can (
 
 ## So, how do I use it?
 
-Sticking with IPv4 for now, let's review the three major "classes" you'll likely work with using **ipaddress**. Those three are:
+Sticking with **IPv4** for now, let's review the three major "classes" you'll likely work with using **ipaddress**. Those three are:
+
 - *IPv4Address*
 - *IPv4Network*
 - *IPv4Interface*
@@ -53,6 +56,8 @@ IPv4Address('192.0.2.10')
 IPv4Address('192.0.2.1')
 >>> ipaddress.IPv4Address("192.0.2.9") + 33
 IPv4Address('192.0.2.42')
+>>> ipaddress.IPv4Address("192.0.2.9") + 289
+IPv4Address('192.0.3.42')
 ```
 
 For another use case, imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the "plain-text" representation of any **ipaddress** object by calling the *str()* function on it):
@@ -127,9 +132,7 @@ Traceback (most recent call last):
 ValueError: 192.0.2.1/24 has host bits set
 ```
 
-The *IPv4Network* class has all the attributes of the *IPv4Address* class, as well as a few more, many of which return an IPv4Address object, to get information like the subnet's network address (by itself), broadcast address, long-form subnet mask, host (wildcard) mask, etc.
-
-*(refer to the official docs for more; these are just a few examples)*
+The *IPv4Network* class has all the attributes of the *IPv4Address* class, as well as a few more, to get information like the subnet's broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):
 
 ```python
 >>> ipaddress.IPv4Network("192.0.2.0/24").network_address
@@ -141,4 +144,31 @@ IPv4Address('255.255.255.0')
 >>> ipaddress.IPv4Network("192.0.2.0/24").hostmask
 IPv4Address('0.0.0.255')
 ```
-*Work in progress*
+
+(notice that many of the returned addresses are actually IPv4Address objects!)
+
+Also, by using *IPv4Address* and *IPv4Network* objects together, it enables the ability to quickly determine if a given address is part of a given subnet:
+
+```python
+>>> ipaddress.IPv4Address("192.0.2.42") in ipaddress.IPv4Network("192.0.2.0/24")
+True
+>>> ipaddress.IPv4Address("10.86.75.39") in ipaddress.IPv4Network("10.0.0.0/8")
+True
+>>> ipaddress.IPv4Address("8.8.8.8") in ipaddress.IPv4Network("172.16.0.0/16")
+False
+```
+
+### IPv4Interface
+
+This brings us to the last class we'll cover today, the *IPv4Interface*. Think of this almost like a combination of *IPv4Address* and *IPv4Network*; it takes both a host IP address *and* a CIDR mask (a syntax style frequently seen on network device interfaces):
+
+```python
+>>> ipaddress.IPv4Interface("192.168.42.10/24")
+IPv4Interface('192.168.42.10/24')
+```
+
+This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example; if I always build a new subnet with the default gateway as the first usable address, I could easily deduce the long-form data from a single *IPv4Interface* object:
+
+```python
+under construction
+```

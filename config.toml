@@ -70,7 +70,7 @@ publishDir   = "docs"
 
     topText = ["theme: <a href=\"https://github.com/rhazdon/hugo-theme-hello-friend-ng\">hello-friend-ng</a>"]
     bottomText = [
-      "Powered by <a href=\"http://gohugo.io\">Hugo</a>, <a href=\"https://pages.github.com\">GitHub Pages</a>, and lots of coffee"
+      "Powered by <a href=\"https://gohugo.io\">Hugo</a>, <a href=\"https://pages.github.com\">GitHub Pages</a>, and lots of coffee"
     ]
 
   # Social icons

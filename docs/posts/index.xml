@@ -26,7 +26,7 @@ The official documentation is here, but read on for a basic summary of this modu
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> ipaddress
 </span></span></code></pre></div><p>Once imported, this gives you access to a number of different classes that can (for example) test whether a given address falls within a given subnet, or if an IP address is valid IPv4.</p>
 <h2 id="so-how-do-i-use-it">So, how do I use it?</h2>
-<p>Sticking with IPv4 for now, let&rsquo;s review the three major &ldquo;classes&rdquo; you&rsquo;ll likely work with using <strong>ipaddress</strong>. Those three are:</p>
+<p>Sticking with <strong>IPv4</strong> for now, let&rsquo;s review the three major &ldquo;classes&rdquo; you&rsquo;ll likely work with using <strong>ipaddress</strong>. Those three are:</p>
 <ul>
 <li><em>IPv4Address</em></li>
 <li><em>IPv4Network</em></li>
@@ -47,6 +47,8 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;192.0.2.1&#39;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;192.0.2.9&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">33</span>
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;192.0.2.42&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;192.0.2.9&#34;</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">289</span>
+</span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;192.0.3.42&#39;</span>)
 </span></span></code></pre></div><p>For another use case, imagine you have a list of data, possibly a list of hostnames and IP addresses, or a list of IP address data of unknown validity. If you want to quickly filter this data out to just valid IP addresses, you can do something as simple as the following example (conveniently, you can get the &ldquo;plain-text&rdquo; representation of any <strong>ipaddress</strong> object by calling the <em>str()</em> function on it):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sus_ip_list <span style="color:#f92672">=</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;100.111.222.3&#34;</span>,
@@ -98,8 +100,7 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span>  File <span style="color:#e6db74">&#34;/usr/lib/python3.7/ipaddress.py&#34;</span>, line <span style="color:#ae81ff">1536</span>, <span style="color:#f92672">in</span> __init__
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has host bits set&#39;</span> <span style="color:#f92672">%</span> self)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ValueError</span>: <span style="color:#ae81ff">192.0.2.1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">24</span> has host bits set
-</span></span></code></pre></div><p>The <em>IPv4Network</em> class has all the attributes of the <em>IPv4Address</em> class, as well as a few more, many of which return an IPv4Address object, to get information like the subnet&rsquo;s network address (by itself), broadcast address, long-form subnet mask, host (wildcard) mask, etc.</p>
-<p><em>(refer to the official docs for more; these are just a few examples)</em></p>
+</span></span></code></pre></div><p>The <em>IPv4Network</em> class has all the attributes of the <em>IPv4Address</em> class, as well as a few more, to get information like the subnet&rsquo;s broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>network_address
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;192.0.2.0&#39;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>broadcast_address
@@ -108,8 +109,21 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;255.255.255.0&#39;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>hostmask
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;0.0.0.255&#39;</span>)
-</span></span></code></pre></div><p><em>Work in progress</em></p>
-]]></content>
+</span></span></code></pre></div><p>(notice that many of the returned addresses are actually IPv4Address objects!)</p>
+<p>Also, by using <em>IPv4Address</em> and <em>IPv4Network</em> objects together, it enables the ability to quickly determine if a given address is part of a given subnet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;192.0.2.42&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;10.86.75.39&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;10.0.0.0/8&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;8.8.8.8&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;172.16.0.0/16&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">False</span>
+</span></span></code></pre></div><h3 id="ipv4interface">IPv4Interface</h3>
+<p>This brings us to the last class we&rsquo;ll cover today, the <em>IPv4Interface</em>. Think of this almost like a combination of <em>IPv4Address</em> and <em>IPv4Network</em>; it takes both a host IP address <em>and</em> a CIDR mask (a syntax style frequently seen on network device interfaces):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Interface(<span style="color:#e6db74">&#34;192.168.42.10/24&#34;</span>)
+</span></span><span style="display:flex;"><span>IPv4Interface(<span style="color:#e6db74">&#39;192.168.42.10/24&#39;</span>)
+</span></span></code></pre></div><p>This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example; if I always build a new subnet with the default gateway as the first usable address, I could easily deduce the long-form data from a single <em>IPv4Interface</em> object:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>under construction
+</span></span></code></pre></div>]]></content>
         </item>
         
         <item>
