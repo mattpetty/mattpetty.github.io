@@ -8,7 +8,7 @@ images:
 
 Hi, I'm Matt Petty, a network engineer in Knoxville, TN, with nearly 15 years of experience in healthcare IT.
 
-My IT career has spanned from the help desk, to desktop support, and for the last 10+ years, network engineering and security. My primary experience is in the Cisco ecosystem, particulary the [Cisco ASA](https://en.wikipedia.org/wiki/Cisco_ASA) and ~~Sourcefire~~ ~~Firepower~~ [Secure Firewall](https://www.cisco.com/site/us/en/products/security/firewalls/index.html), and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI).
+My IT career started with help desk and desktop support, but quickly shifted to network engineering, and for the last 10+ years, has focused mainly on network security and services. My primary experience is in the Cisco ecosystem, particulary the [Cisco ASA](https://en.wikipedia.org/wiki/Cisco_ASA) and ~~Sourcefire~~ ~~Firepower~~ [Secure Firewall](https://www.cisco.com/site/us/en/products/security/firewalls/index.html), and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI). I've also had plenty of experience with [Infoblox](https://www.infoblox.com) DDI products, as well as various products from Forcepoint/Websense, Barracuda, SonicWall, and more.
 
 I hold no official certifications (other than a CompTIA A+ from 2004!), though I did obtain two degrees from a [now-defunct](https://en.wikipedia.org/wiki/ITT_Technical_Institute) educational "institute," but I still love learning about and labbing any technology that draws my curiosity.
 
