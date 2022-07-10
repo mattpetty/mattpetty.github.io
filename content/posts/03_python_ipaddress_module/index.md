@@ -193,4 +193,4 @@ Gateway:     172.16.99.1
 
 ## Summary
 
-I hope these examples have shed some light on how Python's **ipaddress** module can be a useful tool any time you need to analyze, process, or generate IP addressing-related data. It's well-documented and readily available as part of the standard library, making it an easy choice to add to your Network Engineering Python toolkit.
+I hope these examples have shed some light on how Python's **ipaddress** module can be a useful tool any time you need to analyze, process, or generate IP addressing-related data. It's well-documented and readily available as part of the standard library, making it an easy choice to add to your Python networking toolkit.

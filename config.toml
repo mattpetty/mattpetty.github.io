@@ -58,9 +58,9 @@ publishDir   = "docs"
   [params.portrait]
     # path     = "router_icon.png"
     # alt      = "Router Icon"
-    path     = "logo2.png"
+    path     = "firewall.png"
     alt      = "Python Logo on Router Icon"
-    maxWidth = "150px"
+    maxWidth = "200px"
 
   [params.footer]
     trademark = true
@@ -68,7 +68,9 @@ publishDir   = "docs"
     copyright = false
     author = true
 
-    topText = ["theme: <a href=\"https://github.com/rhazdon/hugo-theme-hello-friend-ng\">hello-friend-ng</a>"]
+    topText = [
+      "<a href=\"https://github.com/rhazdon/hugo-theme-hello-friend-ng\">hello-friend-ng</a>",
+      "<a href=\"https://icons8.com\">icons8</a>"]
     bottomText = [
       "Powered by <a href=\"https://gohugo.io\">Hugo</a>, <a href=\"https://pages.github.com\">GitHub Pages</a>, and lots of coffee"
     ]
