@@ -1,6 +1,6 @@
 ---
 title: "Python's ipaddress Module"
-date: 2022-06-18T21:59:23-04:00
+date: 2022-07-09T22:30:30-04:00
 draft: false
 toc: true
 images:
@@ -147,7 +147,7 @@ IPv4Address('0.0.0.255')
 
 (notice that many of the returned addresses are actually IPv4Address objects!)
 
-Also, by using *IPv4Address* and *IPv4Network* objects together, it enables the ability to quickly determine if a given address is part of a given subnet:
+Also, using *IPv4Address* and *IPv4Network* objects together enables the ability to quickly determine if a given address is part of a given subnet:
 
 ```python
 >>> ipaddress.IPv4Address("192.0.2.42") in ipaddress.IPv4Network("192.0.2.0/24")
@@ -160,15 +160,37 @@ False
 
 ### IPv4Interface
 
-This brings us to the last class we'll cover today, the *IPv4Interface*. Think of this almost like a combination of *IPv4Address* and *IPv4Network*; it takes both a host IP address *and* a CIDR mask (a syntax style frequently seen on network device interfaces):
+This brings us to the *IPv4Interface* class. Think of this almost like a combination of *IPv4Address* and *IPv4Network*; it takes both a host IP address *and* a CIDR mask (a syntax style frequently seen on network device interfaces):
 
 ```python
 >>> ipaddress.IPv4Interface("192.168.42.10/24")
 IPv4Interface('192.168.42.10/24')
 ```
 
-This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example; if I always build a new subnet with the default gateway as the first usable address, I could easily deduce the long-form data from a single *IPv4Interface* object:
+This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example: with a consistently followed standard of using the first usable address in a subnet as the default gateway, all the typically relevant IP-related data (host address, netmask, gateway) could be deduced from a single *IPv4Interface* object:
 
 ```python
-under construction
+my_host = ipaddress.IPv4Interface("172.16.99.42/24")
+
+host_ip_address = my_host.ip
+host_subnet_mask = my_host.netmask
+host_gateway = my_host.network.network_address + 1
 ```
+
+Printing the output from the example above produces the following:
+
+```python
+>>> print(f"""
+... IP Address:  {host_ip_address}
+... Subnet Mask: {host_subnet_mask}
+... Gateway:     {host_gateway}
+... """)
+
+IP Address:  172.16.99.42
+Subnet Mask: 255.255.255.0
+Gateway:     172.16.99.1
+```
+
+## Summary
+
+I hope these examples have shed some light on how Python's **ipaddress** module can be a useful tool any time you need to analyze, process, or generate IP addressing-related data. It's well-documented and readily available as part of the standard library, making it an easy choice to add to your Network Engineering Python toolkit.

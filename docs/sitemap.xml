@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://mattpetty.github.io/about/</loc>
-    <lastmod>2022-06-21T20:45:03-04:00</lastmod>
-  </url><url>
     <loc>https://mattpetty.github.io/</loc>
-    <lastmod>2022-06-18T21:59:23-04:00</lastmod>
+    <lastmod>2022-07-09T22:30:30-04:00</lastmod>
   </url><url>
     <loc>https://mattpetty.github.io/posts/</loc>
-    <lastmod>2022-06-18T21:59:23-04:00</lastmod>
+    <lastmod>2022-07-09T22:30:30-04:00</lastmod>
   </url><url>
     <loc>https://mattpetty.github.io/tags/python/</loc>
-    <lastmod>2022-06-18T21:59:23-04:00</lastmod>
+    <lastmod>2022-07-09T22:30:30-04:00</lastmod>
   </url><url>
-    <loc>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</loc>
-    <lastmod>2022-06-18T21:59:23-04:00</lastmod>
+    <loc>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</loc>
+    <lastmod>2022-07-09T22:30:30-04:00</lastmod>
   </url><url>
     <loc>https://mattpetty.github.io/tags/</loc>
-    <lastmod>2022-06-18T21:59:23-04:00</lastmod>
+    <lastmod>2022-07-09T22:30:30-04:00</lastmod>
+  </url><url>
+    <loc>https://mattpetty.github.io/about/</loc>
+    <lastmod>2022-06-21T20:45:03-04:00</lastmod>
   </url><url>
     <loc>https://mattpetty.github.io/2022/06/17/second-post-image-testing/</loc>
     <lastmod>2022-06-17T12:05:41-04:00</lastmod>

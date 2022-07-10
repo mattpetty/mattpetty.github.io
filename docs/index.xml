@@ -6,26 +6,26 @@
     <description>Recent content on Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Jun 2022 21:59:23 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jul 2022 22:30:30 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python&#39;s ipaddress Module</title>
+      <link>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</link>
+      <pubDate>Sat, 09 Jul 2022 22:30:30 -0400</pubDate>
+      
+      <guid>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</guid>
+      <description>Introduction (some familiarity with Python is assumed for this article)
+Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
+The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
+    </item>
+    
     <item>
       <title>About</title>
       <link>https://mattpetty.github.io/about/</link>
       <pubDate>Tue, 21 Jun 2022 20:45:03 -0400</pubDate>
       
       <guid>https://mattpetty.github.io/about/</guid>
-      <description>Hi, I&amp;rsquo;m Matt Petty, a network engineer in Knoxville, TN, with nearly 15 years of experience in healthcare IT.
-My IT career has spanned from the help desk, to desktop support, and for the last 10+ years, network engineering and security. My primary experience is in the Cisco ecosystem, particulary the Cisco ASA and Sourcefire Firepower Secure Firewall, and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI).</description>
-    </item>
-    
-    <item>
-      <title>Python&#39;s ipaddress Module</title>
-      <link>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</link>
-      <pubDate>Sat, 18 Jun 2022 21:59:23 -0400</pubDate>
-      
-      <guid>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</guid>
-      <description>Introduction (some familiarity with Python is assumed for this article)
-Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
-The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
+      <description>Hi, I&amp;rsquo;m Matt Petty, a network engineer in Knoxville, TN, with over 15 years of experience in healthcare IT.
+My IT career started with help desk and desktop support, but quickly shifted to network engineering, and for the last 10+ years, has focused mainly on network security and services. My primary experience is in the Cisco ecosystem, particulary the Cisco ASA and Sourcefire Firepower Secure Firewall, and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI).</description>
     </item>
     
     <item>

@@ -6,13 +6,13 @@
     <description>Recent content in python on Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Jun 2022 21:59:23 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Jul 2022 22:30:30 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python&#39;s ipaddress Module</title>
-      <link>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</link>
-      <pubDate>Sat, 18 Jun 2022 21:59:23 -0400</pubDate>
+      <link>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</link>
+      <pubDate>Sat, 09 Jul 2022 22:30:30 -0400</pubDate>
       
-      <guid>https://mattpetty.github.io/2022/06/18/pythons-ipaddress-module/</guid>
+      <guid>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</guid>
       <description>Introduction (some familiarity with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
