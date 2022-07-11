@@ -6,7 +6,7 @@ comments: false
 images:
 ---
 
-Hi, I'm Matt Petty, a network engineer in [Knoxville, TN](https://en.wikipedia.org/wiki/Knoxville,_Tennessee), with over 15 years of experience in healthcare IT.
+Hi, I'm Matt Petty, a network engineer in Knoxville, TN, with over 15 years of experience in healthcare IT.
 
 My IT career started with help desk and desktop support, but quickly shifted to network engineering, and for the last 10+ years, has focused mainly on network security and services. My primary experience is in the Cisco ecosystem, particulary the [Cisco ASA](https://en.wikipedia.org/wiki/Cisco_ASA) and ~~Sourcefire~~ ~~Firepower~~ [Secure Firewall](https://www.cisco.com/site/us/en/products/security/firewalls/index.html), and many other Cisco acronym soups (AnyConnect, ISE, IOS, NX-OS, WLC, even a little DNA and ACI).
 
