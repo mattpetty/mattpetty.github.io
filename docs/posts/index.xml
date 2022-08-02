@@ -5,8 +5,59 @@
         <description>Recent content in Posts on Matt&#39;s Networking Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 09 Jul 2022 22:30:30 -0400</lastBuildDate>
+        <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate>
         <atom:link href="https://mattpetty.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Beginner Python Examples</title>
+            <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</link>
+            <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
+            
+            <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</guid>
+            <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python.
+Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a collection of items is called a List. For this particular list of MAC addresses, I&amp;rsquo;ll use a list of strings, which is really just a fancy word for some text.</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python.</p>
+<h2 id="examples">Examples</h2>
+<p>For these first two examples, let&rsquo;s imagine some data, such as a list of MAC addresses. In Python, a <em>collection</em> of items is called a <em>List</em>. For this particular list of MAC addresses, I&rsquo;ll use a list of <em>strings</em>, which is really just a fancy word for some text. Lists are represented via square brackets <strong>[]</strong>, with each item separated by commas, and strings are enclosed in quotes <strong>&quot;&quot;</strong> (single or double, your choice):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> known_mac_addresses <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>If you stare at the list above long enough, you may notice that the last item of the list ends with a comma, even though there isn&rsquo;t another item that comes after it. This is a matter of personal preference, but trailing commas are optional in Python lists (as the above example illustrates, I prefer them myself for readability, and also for ease of any future additions to the list, but mainly because that&rsquo;s what the <em>Black</em> formatter does, along with double-quotes for strings).</p>
+<p>Now that some data has been established, let&rsquo;s look at some examples of what we can do with it.</p>
+<h3 id="example-1---find-a-single-item">Example 1 - Find a Single Item</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mac_to_find <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> mac_to_find <span style="color:#f92672">in</span> known_mac_addresses:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
+</span></span></code></pre></div><p>Running the above code should produce something like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span> 
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">86</span><span style="color:#f92672">-</span><span style="color:#ae81ff">75</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span><span style="color:#f92672">-</span><span style="color:#ae81ff">9E-19</span><span style="color:#f92672">-</span><span style="color:#ae81ff">00</span> <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
+</span></span></code></pre></div><h3 id="example-2---multiple-items-looping">Example 2 - Multiple Items (Looping)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>maclist_to_find <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;FA-CE-B0-0C-FA-CE&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mac_address <span style="color:#f92672">in</span> maclist_to_find:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mac_address <span style="color:#f92672">in</span> known_mac_addresses:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
+</span></span></code></pre></div><p><strong>WORK IN PROGRESS</strong></p>
+]]></content>
+        </item>
         
         <item>
             <title>Python&#39;s ipaddress Module</title>

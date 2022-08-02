@@ -6,7 +6,17 @@
     <description>Recent content in untagged on Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Jun 2022 12:05:41 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Beginner Python Examples</title>
+      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</link>
+      <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
+      
+      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</guid>
+      <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python.
+Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a collection of items is called a List. For this particular list of MAC addresses, I&amp;rsquo;ll use a list of strings, which is really just a fancy word for some text.</description>
+    </item>
+    
     <item>
       <title>Second Post - Image Testing</title>
       <link>https://mattpetty.github.io/2022/06/17/second-post-image-testing/</link>
