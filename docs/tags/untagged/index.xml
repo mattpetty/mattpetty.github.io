@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>untagged on Matt&#39;s Networking Blog</title>
+    <title>untagged on Packets &amp; Python: Matt&#39;s Networking Blog</title>
     <link>https://mattpetty.github.io/tags/untagged/</link>
-    <description>Recent content in untagged on Matt&#39;s Networking Blog</description>
+    <description>Recent content in untagged on Packets &amp; Python: Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Dec 2022 23:42:00 -0500</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS</title>
+      <link>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</link>
+      <pubDate>Sun, 18 Dec 2022 23:42:00 -0500</pubDate>
+      
+      <guid>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</guid>
+      <description>If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;sEncrypt to acquire a valid SSL certificate.
+Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server.</description>
+    </item>
+    
     <item>
       <title>Beginner Python Examples</title>
       <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</link>

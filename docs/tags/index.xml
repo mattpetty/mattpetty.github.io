@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Matt&#39;s Networking Blog</title>
+    <title>Tags on Packets &amp; Python: Matt&#39;s Networking Blog</title>
     <link>https://mattpetty.github.io/tags/</link>
-    <description>Recent content in Tags on Matt&#39;s Networking Blog</description>
+    <description>Recent content in Tags on Packets &amp; Python: Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Dec 2022 23:42:00 -0500</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>untagged</title>
       <link>https://mattpetty.github.io/tags/untagged/</link>
-      <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
+      <pubDate>Sun, 18 Dec 2022 23:42:00 -0500</pubDate>
       
       <guid>https://mattpetty.github.io/tags/untagged/</guid>
       <description></description>

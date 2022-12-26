@@ -1,12 +1,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Matt&#39;s Networking Blog</title>
+        <title>Posts on Packets &amp; Python: Matt&#39;s Networking Blog</title>
         <link>https://mattpetty.github.io/posts/</link>
-        <description>Recent content in Posts on Matt&#39;s Networking Blog</description>
+        <description>Recent content in Posts on Packets &amp; Python: Matt&#39;s Networking Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate>
+        <lastBuildDate>Sun, 18 Dec 2022 23:42:00 -0500</lastBuildDate>
         <atom:link href="https://mattpetty.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS</title>
+            <link>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</link>
+            <pubDate>Sun, 18 Dec 2022 23:42:00 -0500</pubDate>
+            
+            <guid>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</guid>
+            <description>If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;sEncrypt to acquire a valid SSL certificate.
+Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server.</description>
+            <content type="html"><![CDATA[<p>If you&rsquo;re a fan of <strong>Proxmox Virtualization Environment</strong> (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a <strong>free</strong> service called <strong><a href="https://letsencrypt.org">Let&rsquo;sEncrypt</a></strong> to acquire a valid SSL certificate.</p>
+<p>Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server.</p>
+<p>This is much preferable to the default self-signed certificates that come installed &ldquo;out-of-the-box,&rdquo; generating security warnings and generally make it slightly less pleasant to administer your Proxmox box.</p>
+<p>In this example, since I&rsquo;m a fan of <strong><a href="https://linode.com">Linode</a></strong> and their hosting services, and because their DNS service is supported as a plugin by <strong>certbot</strong> (a command-line tool for interacting with Let&rsquo;sEncrypt), I&rsquo;ll be using Linode DNS for the validation process.</p>
+<h3 id="creating-a-linode-api-token">Creating a Linode API Token</h3>
+<p>Begin by creating an <strong>API Token</strong> in your Linode account that has permissions to create and delete DNS records.</p>
+<ol>
+<li>Log into Linode in your web browser</li>
+<li>Click your profile avatar in upper right -&gt; Click <strong>API Tokens</strong></li>
+</ol>
+<p><img src="images/01.png" alt="API Tokens">
+<br>
+3. Click <strong>Create Personal Access Token</strong>
+<br>
+4. Set name &amp; expiry date (if desired) and change <strong>Domains</strong> to Read/Write</p>
+<p><img src="images/02.png" alt="Token Permissions"></p>
+<blockquote>
+<p>📝 Depending on your domain and use-case, it&rsquo;s highly advisable to set the <em>Default TTL</em> for your Linode DNS records to something very low (ideally 30 seconds, or 2 minutes), at least while you&rsquo;re setting up Let&rsquo;s Encrypt. Setting the TTL lower helps prevent the ephemeral DNS records used for the DNS challenge from being cached for long periods of time, which can be problematic if a validation fails and you need to try again.</p>
+</blockquote>
+<h3 id="configuring-proxmox-pve-for-acme--lets-encrypt">Configuring Proxmox PVE for ACME / Let&rsquo;s Encrypt</h3>
+<p>Once you&rsquo;ve created a <strong>Linode API Token</strong> (and saved it or wrote it down&hellip; <em>right?</em>), log into your <strong>Proxmox VE</strong> server&rsquo;s web GUI.</p>
+<p>From the left-hand menu, navigate to <strong>Datacenter</strong> -&gt; <strong>ACME</strong>.</p>
+<p>Under the <strong>Accounts</strong> section, click <strong>Add</strong>.</p>
+<ol>
+<li>Create an account for <em>LetsEncrypt Staging</em> by creating a descriptive account name and providing your email address.</li>
+<li>From the <strong>ACME Directory</strong> drop-down menu, select <strong>Let&rsquo;s Encrypt V2 Staging</strong>.</li>
+<li>Click the box to <strong>Accept TOS</strong> (Terms of Service)</li>
+<li>Click <strong>Register</strong></li>
+<li>Repeat steps 1-4 again, but this time select <strong>Let&rsquo;s Encrypt V2</strong> from the <strong>ACME Directory</strong> drop-down menu.</li>
+</ol>
+<p><img src="images/03.png" alt="Add Staging Account"></p>
+<p><img src="images/04.png" alt="Add Account"></p>
+<blockquote>
+<p>📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of LetsEncrypt. Using the <em>Staging</em> version allows you to test the setup without the risk of getting temporarily rate-limited by LetsEncrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is <em>untrusted</em> by default in all browsers. Once you get the process working in Staging, switching over to the real Let&rsquo;s Encrypt environment will get you <em>trusted</em> certificates.</p>
+</blockquote>
+<p>Under the <strong>Challenge Plugins</strong> section, click <strong>Add</strong>.</p>
+<ol>
+<li>Create a memorable name, such as <em>Linode-DNS-API</em></li>
+<li>Change <strong>Validation Delay</strong> from <em>30 seconds</em> to (at least) <em>60 seconds</em></li>
+<li>From the <strong>DNI API</strong> drop-down menu, choose <em>linode_v4</em></li>
+<li>In the box labeled <strong>API Data</strong>, enter your Linode API Token in the following form:
+LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
+</ol>
+<blockquote>
+<p>📝 When entering your Linode API token, make sure not to input any quotes or extraneous whitespace.</p>
+</blockquote>
+<p><img src="images/05.png" alt="Create DNS Plugin"></p>
+<blockquote>
+<p>📝 When configuring the DNS plugin, be sure to increase the validation delay from the default 30 seconds. I recommend at least 60 seconds, as Linode&rsquo;s DNS record creation takes significantly longer than 30 seconds. If the validation delay isn&rsquo;t sufficiently long enough to allow for the DNS record&rsquo;s successful creation, the Let&rsquo;s Encrypt DNS validation will never complete successfully.</p>
+</blockquote>
+<h3 id="acquiring-ssl-certificates-from-lets-encrypt">Acquiring SSL Certificates from Let&rsquo;s Encrypt</h3>
+<p>Lastly, back at the left-side Proxmox VE menu, select the <em>PVE node</em> that needs an SSL certificate (underneath <strong>Datacenter</strong>).</p>
+<ol>
+<li>Click on <strong>System</strong> -&gt; <strong>Certificates</strong></li>
+<li>Under the <strong>ACME</strong> section, click <strong>Using Account:</strong>, select your <em>Staging</em> account and click <strong>Apply</strong>.</li>
+</ol>
+<p><img src="images/06.png" alt="ACME Account">
+<br>
+3. Click thd <strong>Add</strong> button and change <strong>Challenge Type</strong> to <em>DNS</em>
+<br>
+4. At the <strong>Plugin:</strong> drop-down menu, select the Linode DNS plugin you created above.</p>
+<p><img src="images/07.png" alt="Generate Certificate">
+<br>
+5. In <strong>Domain:</strong> enter the <strong>hostname</strong> and <strong>domain name</strong> (aka FQDN) you&rsquo;re acquiring a certificate for, then click <strong>Create</strong>.
+<br>
+6. Once you&rsquo;ve added the new <strong>ACME</strong> entry, click <strong>Order Certificates Now</strong> to run the Let&rsquo;s Encrypt validation challenge.</p>
+<p>Assuming everything is set up correctly, you should be able to watch your PVE server run through a DNS challenge, with the temporary TXT verification records being created and deleted automatically through the Linode API. Once complete, your Proxmox VE server will automatically install the new certificate and restart the web GUI.</p>
+<p>If you used the <em>Let&rsquo;s Encrypt V2 Staging</em> account for the first attempt, you&rsquo;ll still be seeing an invalid SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value&hellip; <em>right?</em>), then run through the above <strong>steps 1-6</strong> again but change the <strong>Account</strong> to the <em>non-Staging</em> version.</p>
+<p>Once the validation process completes for the <strong>real</strong> Let&rsquo;s Encrypt validation environment and the GUI restarts again, you should be seeing a <em>valid</em> SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). Enjoy!</p>
+<p><img src="images/08.jpg" alt="SSL Certificates Everywhere!"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Beginner Python Examples</title>

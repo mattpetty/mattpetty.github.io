@@ -1,5 +1,5 @@
 baseurl      = "https://mattpetty.github.io"
-title        = "Matt's Networking Blog"
+title        = "Packets & Python: Matt's Networking Blog"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10

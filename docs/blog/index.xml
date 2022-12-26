@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Matt&#39;s Networking Blog</title>
+    <title>Blog on Packets &amp; Python: Matt&#39;s Networking Blog</title>
     <link>https://mattpetty.github.io/blog/</link>
-    <description>Recent content in Blog on Matt&#39;s Networking Blog</description>
+    <description>Recent content in Blog on Packets &amp; Python: Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language><atom:link href="https://mattpetty.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
   </channel>
