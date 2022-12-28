@@ -14,23 +14,25 @@
             <pubDate>Sun, 18 Dec 2022 23:42:00 -0500</pubDate>
             
             <guid>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</guid>
-            <description>If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;sEncrypt to acquire a valid SSL certificate.
-Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server.</description>
-            <content type="html"><![CDATA[<p>If you&rsquo;re a fan of <strong>Proxmox Virtualization Environment</strong> (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a <strong>free</strong> service called <strong><a href="https://letsencrypt.org">Let&rsquo;sEncrypt</a></strong> to acquire a valid SSL certificate.</p>
-<p>Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server.</p>
-<p>This is much preferable to the default self-signed certificates that come installed &ldquo;out-of-the-box,&rdquo; generating security warnings and generally make it slightly less pleasant to administer your Proxmox box.</p>
-<p>In this example, since I&rsquo;m a fan of <strong><a href="https://linode.com">Linode</a></strong> and their hosting services, and because their DNS service is supported as a plugin by <strong>certbot</strong> (a command-line tool for interacting with Let&rsquo;sEncrypt), I&rsquo;ll be using Linode DNS for the validation process.</p>
+            <description>If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;s Encrypt to acquire a valid SSL certificate.
+Let&amp;rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server.</description>
+            <content type="html"><![CDATA[<p>If you&rsquo;re a fan of <strong>Proxmox Virtualization Environment</strong> (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a <strong>free</strong> service called <strong><a href="https://letsencrypt.org">Let&rsquo;s Encrypt</a></strong> to acquire a valid SSL certificate.</p>
+<p>Let&rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server.</p>
+<p>This is much preferable to the default self-signed certificates that come installed &ldquo;out-of-the-box,&rdquo; generating security warnings and generally making it slightly less pleasant to administer your Proxmox box.</p>
+<p>In this example, since I&rsquo;m a fan of <strong><a href="https://linode.com">Linode</a></strong> and their hosting services, and because their DNS API <a href="https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438">is supported</a> for Let&rsquo;s Encrypt DNS challenges, I&rsquo;ll be using Linode DNS for the validation process.</p>
 <h3 id="creating-a-linode-api-token">Creating a Linode API Token</h3>
 <p>Begin by creating an <strong>API Token</strong> in your Linode account that has permissions to create and delete DNS records.</p>
 <ol>
-<li>Log into Linode in your web browser</li>
-<li>Click your profile avatar in upper right -&gt; Click <strong>API Tokens</strong></li>
+<li>Log into <strong>Linode</strong> in your web browser</li>
+<li>Click your <strong>Profile</strong> avatar in upper right -&gt; Click <strong>API Tokens</strong></li>
 </ol>
 <p><img src="images/01.png" alt="API Tokens">
 <br>
 3. Click <strong>Create Personal Access Token</strong>
 <br>
-4. Set name &amp; expiry date (if desired) and change <strong>Domains</strong> to Read/Write</p>
+4. Create a <strong>Label</strong> (name) and set an <strong>Expiry Date</strong> (if desired)
+<br>
+5. Since this token is only for <strong>DNS</strong> (aka Domains), set all categories to <em>None</em>, and change <strong>Domains</strong> to <em>Read/Write</em></p>
 <p><img src="images/02.png" alt="Token Permissions"></p>
 <blockquote>
 <p>📝 Depending on your domain and use-case, it&rsquo;s highly advisable to set the <em>Default TTL</em> for your Linode DNS records to something very low (ideally 30 seconds, or 2 minutes), at least while you&rsquo;re setting up Let&rsquo;s Encrypt. Setting the TTL lower helps prevent the ephemeral DNS records used for the DNS challenge from being cached for long periods of time, which can be problematic if a validation fails and you need to try again.</p>
@@ -40,7 +42,7 @@ Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or
 <p>From the left-hand menu, navigate to <strong>Datacenter</strong> -&gt; <strong>ACME</strong>.</p>
 <p>Under the <strong>Accounts</strong> section, click <strong>Add</strong>.</p>
 <ol>
-<li>Create an account for <em>LetsEncrypt Staging</em> by creating a descriptive account name and providing your email address.</li>
+<li>Create an account for <em>Let&rsquo;s Encrypt Staging</em> by creating a descriptive account name and providing your email address.</li>
 <li>From the <strong>ACME Directory</strong> drop-down menu, select <strong>Let&rsquo;s Encrypt V2 Staging</strong>.</li>
 <li>Click the box to <strong>Accept TOS</strong> (Terms of Service)</li>
 <li>Click <strong>Register</strong></li>
@@ -49,7 +51,7 @@ Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or
 <p><img src="images/03.png" alt="Add Staging Account"></p>
 <p><img src="images/04.png" alt="Add Account"></p>
 <blockquote>
-<p>📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of LetsEncrypt. Using the <em>Staging</em> version allows you to test the setup without the risk of getting temporarily rate-limited by LetsEncrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is <em>untrusted</em> by default in all browsers. Once you get the process working in Staging, switching over to the real Let&rsquo;s Encrypt environment will get you <em>trusted</em> certificates.</p>
+<p>📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of Let&rsquo;s Encrypt. Using the <em>Staging</em> version allows you to test the setup without the risk of getting temporarily rate-limited by Let&rsquo;s Encrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is <em>untrusted</em> by default in all browsers. Once you get the process working in Staging, switching over to the real Let&rsquo;s Encrypt environment will get you <em>trusted</em> certificates.</p>
 </blockquote>
 <p>Under the <strong>Challenge Plugins</strong> section, click <strong>Add</strong>.</p>
 <ol>
@@ -83,74 +85,58 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
 <br>
 6. Once you&rsquo;ve added the new <strong>ACME</strong> entry, click <strong>Order Certificates Now</strong> to run the Let&rsquo;s Encrypt validation challenge.</p>
 <p>Assuming everything is set up correctly, you should be able to watch your PVE server run through a DNS challenge, with the temporary TXT verification records being created and deleted automatically through the Linode API. Once complete, your Proxmox VE server will automatically install the new certificate and restart the web GUI.</p>
-<p>If you used the <em>Let&rsquo;s Encrypt V2 Staging</em> account for the first attempt, you&rsquo;ll still be seeing an invalid SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value&hellip; <em>right?</em>), then run through the above <strong>steps 1-6</strong> again but change the <strong>Account</strong> to the <em>non-Staging</em> version.</p>
-<p>Once the validation process completes for the <strong>real</strong> Let&rsquo;s Encrypt validation environment and the GUI restarts again, you should be seeing a <em>valid</em> SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). Enjoy!</p>
+<blockquote>
+<p>📝 If the DNS challenge process fails, the first culprit is likely going to be the <em>validation delay</em>. If you&rsquo;ve already set the validation delay to 60 seconds, try increasing it even higher to 90 seconds, 120 seconds, or even more. This should allow for plenty of time for the DNS TXT record(s) to be created and reachable globally.</p>
+</blockquote>
+<blockquote>
+<p>📝 Additionally, when logged into <a href="https://linode.com">Linode</a>, watch the notifications section in the GUI, which will report to you in real-time when the DNS TXT records are created or deleted. If you aren&rsquo;t seeing any activity for DNS changes in your Linode account when your PVE node is running the Let&rsquo;s Encrypt process, verify that you entered the Linode API key correctly as outlined under <strong>Challenge Plugins</strong> above, and ensure you&rsquo;re using the <strong>Linode_V4</strong> API (which is the most current version as of the writing of this blog post).</p>
+</blockquote>
+<p>If you used the <em>Let&rsquo;s Encrypt V2 Staging</em> account for the first attempt, you&rsquo;ll still be seeing an <strong>invalid</strong> SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value&hellip; <em>right?</em>), then run through the above <strong>steps 1-6</strong> again but change the <strong>Account</strong> to the <em>non-Staging</em> version.</p>
+<p>Once the validation process completes for the <strong>real</strong> Let&rsquo;s Encrypt validation environment and the GUI restarts again, you should be seeing a <em>valid</em> (trusted) SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). And conveniently, the renewal process will happen automatically every 90 days to avoid the certificate expiring.</p>
+<p>Enjoy!</p>
 <p><img src="images/08.jpg" alt="SSL Certificates Everywhere!"></p>
 ]]></content>
         </item>
         
         <item>
-            <title>Beginner Python Examples</title>
-            <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</link>
-            <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
+            <title>NAT Control on the Cisco ASA</title>
+            <link>https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/</link>
+            <pubDate>Mon, 07 Nov 2022 13:46:18 -0500</pubDate>
             
-            <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples/</guid>
-            <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python.
-Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a collection of items is called a List. For this particular list of MAC addresses, I&amp;rsquo;ll use a list of strings, which is really just a fancy word for some text.</description>
+            <guid>https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/</guid>
+            <description>Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python.</p>
-<h2 id="examples">Examples</h2>
-<p>For these first two examples, let&rsquo;s imagine some data, such as a list of MAC addresses. In Python, a <em>collection</em> of items is called a <em>List</em>. For this particular list of MAC addresses, I&rsquo;ll use a list of <em>strings</em>, which is really just a fancy word for some text. Lists are represented via square brackets <strong>[]</strong>, with each item separated by commas, and strings are enclosed in quotes <strong>&quot;&quot;</strong> (single or double, your choice):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> known_mac_addresses <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
-</span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div><p>If you stare at the list above long enough, you may notice that the last item of the list ends with a comma, even though there isn&rsquo;t another item that comes after it. This is a matter of personal preference, but trailing commas are optional in Python lists (as the above example illustrates, I prefer them myself for readability, and also for ease of any future additions to the list, but mainly because that&rsquo;s what the <em>Black</em> formatter does, along with double-quotes for strings).</p>
-<p>Now that some data has been established, let&rsquo;s look at some examples of what we can do with it.</p>
-<h3 id="example-1---find-a-single-item">Example 1 - Find a Single Item</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>mac_to_find <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> mac_to_find <span style="color:#f92672">in</span> known_mac_addresses:
-</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
-</span></span></code></pre></div><p>Running the above code should produce something like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span> 
-</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">86</span><span style="color:#f92672">-</span><span style="color:#ae81ff">75</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span><span style="color:#f92672">-</span><span style="color:#ae81ff">9E-19</span><span style="color:#f92672">-</span><span style="color:#ae81ff">00</span> <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
-</span></span></code></pre></div><h3 id="example-2---multiple-items-looping">Example 2 - Multiple Items (Looping)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>maclist_to_find <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-9E-19-00&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;FA-CE-B0-0C-FA-CE&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
-</span></span><span style="display:flex;"><span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mac_address <span style="color:#f92672">in</span> maclist_to_find:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mac_address <span style="color:#f92672">in</span> known_mac_addresses:
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
-</span></span></code></pre></div><p><strong>WORK IN PROGRESS</strong></p>
+<p>The history of <strong>NAT</strong> (<a href="https://en.wikipedia.org/wiki/Network_address_translation">network address translation</a>) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; <em>evolved</em> over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.</p>
+<h2 id="nat-control">NAT Control</h2>
+<p>Enter <strong>NAT Control</strong>, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the device, but also on your mental model of how you might expect the firewall to function.</p>
+<h2 id="origin">Origin</h2>
+<p>So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco&rsquo;s <strong><a href="https://en.wikipedia.org/wiki/Cisco_PIX">PIX</a></strong> firewall <em>required</em> NAT (or a NAT <em>exemption</em>) for <em>all</em> traffic passing between any two firewall interfaces, up through the maximum PIX OS version <em>6.3</em>.</p>
+<p>What this means is that basically an IP packet couldn&rsquo;t pass through the firewall untouched unless a specific NAT exemption was created (essentially, a rule saying “don’t NAT this specific traffic”).</p>
+<p><img src="images/01.jpg" alt="One Does Not Simply Pass Through NAT Control"></p>
+<h2 id="evolution">Evolution</h2>
+<p>With the introduction of the <a href="https://en.wikipedia.org/wiki/Cisco_ASA">Cisco ASA</a> in mid-2005, Cisco converted both the PIX and ASA firewalls to the newer <em>ASA codebase</em> starting with version <em>7.0(1)</em>. In that version, the <strong>nat-control</strong> feature became available so that the previous default PIX NAT behavior could be enabled or disabled, which is as simple as issuing the commands <em>&ldquo;nat-control&rdquo;</em> or <em>&ldquo;no nat-control&rdquo;</em>.</p>
+<p>Once <em>disabled</em>, there doesn&rsquo;t need to be any NAT configuration in place for traffic to pass between the firewall&rsquo;s interfaces, as long as existing access-lists, security-levels, and routing entries permit that traffic to do so. Granted, if you&rsquo;re considering the common scenario of an internet-edge facing firewall that NATs <a href="https://en.wikipedia.org/wiki/Private_network">private IPv4 space</a> to one or more public IPv4 addresses, you&rsquo;ll still need to NAT anyway (or move to <a href="https://en.wikipedia.org/wiki/IPv6">IPv6</a> already!).</p>
+<h2 id="displacement">Displacement</h2>
+<p>By the time Cisco did the massive NAT reboot of the ASA 8.3 code train around mid-2010, <strong>nat-control</strong> was no more. Release version <em>8.3(1)</em> marked the end of the availability of the <strong>nat-control</strong> feature, no longer even available as a configurable option.</p>
+<p>Nowadays, if no NAT rules have been put in place, packets can traverse Cisco firewalls with their source and destination IP addresses blissfully unchanged (and besides, who wouldn&rsquo;t like to save a few CPU cycles on their firewall if we can get away with it?).</p>
+<p><img src="images/02.jpg" alt="These Aren&amp;rsquo;t the Packets You Need to NAT"></p>
 ]]></content>
         </item>
         
         <item>
             <title>Python&#39;s ipaddress Module</title>
-            <link>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</link>
-            <pubDate>Sat, 09 Jul 2022 22:30:30 -0400</pubDate>
+            <link>https://mattpetty.github.io/2022/08/09/pythons-ipaddress-module/</link>
+            <pubDate>Tue, 09 Aug 2022 22:30:30 -0400</pubDate>
             
-            <guid>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</guid>
-            <description>Introduction (some familiarity with Python is assumed for this article)
+            <guid>https://mattpetty.github.io/2022/08/09/pythons-ipaddress-module/</guid>
+            <description>Introduction 📝 (Note: some familiarity with Python is assumed for this article)
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p><em>(some familiarity with Python is assumed for this article)</em></p>
+<blockquote>
+<p>📝 (Note: some <a href="http://localhost:1313/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
+</blockquote>
 <p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
 <p>The official documentation is <a href="https://docs.python.org/3/library/ipaddress.html">here</a>, but read on for a basic summary of this module and some helpful uses for it.</p>
 <h2 id="importing">Importing</h2>
@@ -210,7 +196,7 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> valid_ip_list
 </span></span><span style="display:flex;"><span>[<span style="color:#e6db74">&#39;100.111.222.3&#39;</span>, <span style="color:#e6db74">&#39;8.8.8.8&#39;</span>, <span style="color:#e6db74">&#39;172.16.1.1&#39;</span>, <span style="color:#e6db74">&#39;192.0.2.42&#39;</span>, <span style="color:#e6db74">&#39;198.51.100.42&#39;</span>, <span style="color:#e6db74">&#39;203.0.113.42&#39;</span>]
-</span></span></code></pre></div><p>Additionally, there are some attributes that allow you to determine what sort of IPv4 address you&rsquo;re dealing with - public, private, multicast, loopback, etc.; or format it as a reverse pointer (PTR) DNS record:</p>
+</span></span></code></pre></div><p>Additionally, there are some properties that allow you to determine what sort of IPv4 address you&rsquo;re dealing with - public, private, multicast, loopback, etc.; or format it as a reverse pointer (PTR) DNS record:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;8.8.8.8&#34;</span>)<span style="color:#f92672">.</span>is_global
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;172.16.1.1&#34;</span>)<span style="color:#f92672">.</span>is_global
@@ -232,7 +218,7 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span>  File <span style="color:#e6db74">&#34;/usr/lib/python3.7/ipaddress.py&#34;</span>, line <span style="color:#ae81ff">1536</span>, <span style="color:#f92672">in</span> __init__
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> has host bits set&#39;</span> <span style="color:#f92672">%</span> self)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ValueError</span>: <span style="color:#ae81ff">192.0.2.1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">24</span> has host bits set
-</span></span></code></pre></div><p>The <em>IPv4Network</em> class has all the attributes of the <em>IPv4Address</em> class, as well as a few more, to get information like the subnet&rsquo;s broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):</p>
+</span></span></code></pre></div><p>The <em>IPv4Network</em> class has all the same attributes and properties of the <em>IPv4Address</em> class, as well as a few more, to get information like the subnet&rsquo;s broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>network_address
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;192.0.2.0&#39;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>broadcast_address
@@ -250,10 +236,11 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;8.8.8.8&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;172.16.0.0/16&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">False</span>
 </span></span></code></pre></div><h3 id="ipv4interface">IPv4Interface</h3>
-<p>This brings us to the <em>IPv4Interface</em> class. Think of this almost like a combination of <em>IPv4Address</em> and <em>IPv4Network</em>; it takes both a host IP address <em>and</em> a CIDR mask (a syntax style frequently seen on network device interfaces):</p>
+<p>This brings us to the <em>IPv4Interface</em> class. Think of this almost like a combination of <em>IPv4Address</em> and <em>IPv4Network</em>; it takes both a host IP address <em>and</em> a CIDR mask, a syntax which is frequently seen on <em>network device interfaces</em>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Interface(<span style="color:#e6db74">&#34;192.168.42.10/24&#34;</span>)
 </span></span><span style="display:flex;"><span>IPv4Interface(<span style="color:#e6db74">&#39;192.168.42.10/24&#39;</span>)
-</span></span></code></pre></div><p>This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example: with a consistently followed standard of using the first usable address in a subnet as the default gateway, all the typically relevant IP-related data (host address, netmask, gateway) could be deduced from a single <em>IPv4Interface</em> object:</p>
+</span></span></code></pre></div><p>This could also be used to describe both a <em>host</em> on a network and its <em>subnet mask</em> with a single object.</p>
+<p>Consider the following example: with a standard of using the first usable address in a subnet as the default gateway, all the typically relevant IP-related data (host address, subnet mask, default gateway) could be deduced from a <em>single</em> <strong>IPv4Interface</strong> object:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>my_host <span style="color:#f92672">=</span> ipaddress<span style="color:#f92672">.</span>IPv4Interface(<span style="color:#e6db74">&#34;172.16.99.42/24&#34;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>host_ip_address <span style="color:#f92672">=</span> my_host<span style="color:#f92672">.</span>ip
@@ -275,30 +262,93 @@ The official documentation is here, but read on for a basic summary of this modu
         </item>
         
         <item>
-            <title>Second Post - Image Testing</title>
-            <link>https://mattpetty.github.io/2022/06/17/second-post-image-testing/</link>
-            <pubDate>Fri, 17 Jun 2022 12:05:41 -0400</pubDate>
+            <title>Beginner Python Examples for Network Engineers</title>
+            <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</link>
+            <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
             
-            <guid>https://mattpetty.github.io/2022/06/17/second-post-image-testing/</guid>
-            <description>Second Post This is a post that&amp;rsquo;s intended to test inserting images into posts. Technical blogs aren&amp;rsquo;t overly helpful without some pretty pictures.
-See you next time!</description>
-            <content type="html"><![CDATA[<h2 id="second-post">Second Post</h2>
-<p><img src="osi_cats.png" alt="Model of OSI layers with cats"></p>
-<p>This is a post that&rsquo;s intended to test inserting images into posts. Technical blogs aren&rsquo;t overly helpful without some pretty pictures.</p>
-<p><img src="images/mpython.gif" alt="And There Was Much Rejoicing"></p>
-<p><strong>See you next time!</strong></p>
-]]></content>
-        </item>
-        
-        <item>
-            <title>Hello World!</title>
-            <link>https://mattpetty.github.io/2022/06/17/hello-world/</link>
-            <pubDate>Fri, 17 Jun 2022 11:57:30 -0400</pubDate>
-            
-            <guid>https://mattpetty.github.io/2022/06/17/hello-world/</guid>
-            <description>Journey Into Blogging Hello world! This is the first test post on my blog.</description>
-            <content type="html"><![CDATA[<h2 id="journey-into-blogging">Journey Into Blogging</h2>
-<p>Hello world! This is the first test post on my blog.</p>
+            <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</guid>
+            <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.
+Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a group of items is called a List (there are also multiple other groupings in Python, but that&amp;rsquo;s a subject for another blog post).</description>
+            <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.</p>
+<h2 id="examples">Examples</h2>
+<p>For these first two examples, let&rsquo;s imagine some data, such as a list of MAC addresses. In Python, a <em>group of items</em> is called a <strong>List</strong> (there are also multiple other groupings in Python, but that&rsquo;s a subject for another blog post). For this particular list of MAC addresses, I&rsquo;ll use a list of <em>strings</em>, which is really just another word for &ldquo;text.&rdquo; Lists are represented via square brackets <strong>[]</strong>, with each item separated by commas, and strings are enclosed in quotes <strong>&quot;&quot;</strong> (single or double, your choice):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> known_mac_addresses <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><blockquote>
+<p>📝 If you stare at the list above long enough, you may notice that the last item of the list ends with a comma, even though there isn&rsquo;t another item that comes after it. This is a matter of personal preference, but trailing commas are optional in Python lists (as the above example illustrates, I prefer them myself for readability, and for ease of any future additions to the list, but also mainly because that&rsquo;s what the <em><a href="https://github.com/psf/black">Black</a></em> code formatter does, along with double-quotes for strings).</p>
+</blockquote>
+<p>Now that some data has been established, let&rsquo;s look at some examples of what we can do with it.</p>
+<h3 id="example-1---find-a-single-item">Example 1 - Find a Single Item</h3>
+<p>One of the nicest things about Python is its simple syntax, which can often closely resemble natural language or pseudocode in the sense that it&rsquo;s very easy to read and understand. In particular, it becomes extremely easy to check for the existence of a specific <em>string of text</em> inside a larger string (or a <em>list</em> of strings, in this example) simply by using the <strong>&ldquo;in&rdquo;</strong> keyword:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>known_mac_addresses <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mac_to_find <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> mac_to_find <span style="color:#f92672">in</span> known_mac_addresses:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
+</span></span></code></pre></div><p>The code above shows a way of specifying an exact match for a given string within a list of strings. Let&rsquo;s focus just on that <strong>if</strong> statement:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> mac_to_find <span style="color:#f92672">in</span> known_mac_addresses:
+</span></span></code></pre></div><p>Running the above code should produce something like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span> 
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">86</span><span style="color:#f92672">-</span><span style="color:#ae81ff">75</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span><span style="color:#f92672">-</span><span style="color:#ae81ff">98</span><span style="color:#f92672">-</span><span style="color:#ae81ff">67</span><span style="color:#f92672">-</span><span style="color:#ae81ff">53</span> <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
+</span></span></code></pre></div><p>Without having had to write any sort of regular expression or come up with a kludgy method of string matching, this ability is built right in to Python using the <strong>in</strong> keyword.</p>
+<h3 id="example-2---multiple-items-looping">Example 2 - Multiple Items (Looping)</h3>
+<p>Finding a <em>single</em> string in a list of strings is great, but what if we have <em>more than one</em> string that we want to match? With Python, we can use <strong>for</strong> loops to easily compare multiple values against each other. A <strong>for</strong> loop simply iterates over every item in a list (or any similar group of items in Python).</p>
+<p>Consider the following example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>known_mac_addresses <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>maclist_to_find <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;C0-FF-EE-C0-FF-EE&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mac_address <span style="color:#f92672">in</span> maclist_to_find:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mac_address <span style="color:#f92672">in</span> known_mac_addresses:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
+</span></span></code></pre></div><p>Once again, let&rsquo;s focus on a specific line from the above example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mac_address <span style="color:#f92672">in</span> maclist_to_find:
+</span></span></code></pre></div><p>By using the <strong>for</strong> loop, the above code will &ldquo;walk&rdquo; through the list <em>maclist_to_find</em> and compare each individual item in it (that is, each desired MAC address) against the initial list of known MAC addresses.</p>
+<p>Running the example code above will produce the following result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">86</span><span style="color:#f92672">-</span><span style="color:#ae81ff">75</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span><span style="color:#f92672">-</span><span style="color:#ae81ff">98</span><span style="color:#f92672">-</span><span style="color:#ae81ff">67</span><span style="color:#f92672">-</span><span style="color:#ae81ff">53</span> <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">01</span><span style="color:#f92672">-</span><span style="color:#ae81ff">23</span><span style="color:#f92672">-</span><span style="color:#ae81ff">45</span><span style="color:#f92672">-</span><span style="color:#ae81ff">67</span><span style="color:#f92672">-</span><span style="color:#ae81ff">89</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>A <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">*</span> Could <span style="color:#f92672">not</span> find C0<span style="color:#f92672">-</span>FF<span style="color:#f92672">-</span>EE<span style="color:#f92672">-</span>C0<span style="color:#f92672">-</span>FF<span style="color:#f92672">-</span>EE <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#f92672">.</span>
+</span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">89</span><span style="color:#f92672">-</span><span style="color:#ae81ff">46</span><span style="color:#f92672">-</span>C3<span style="color:#f92672">-</span><span style="color:#ae81ff">69</span><span style="color:#f92672">-</span>D8<span style="color:#f92672">-</span>D4 <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
+</span></span></code></pre></div><h3 id="conclusion">Conclusion</h3>
+<p>Hopefully, these simple examples show just how easy Python makes it to start working with text-based data (particularly <em>strings</em> and <em>lists</em>) with a combination of simple syntax, such as <strong>&ldquo;in&rdquo;</strong>, and using <strong>for</strong> loops. Automate away!</p>
 ]]></content>
         </item>
         

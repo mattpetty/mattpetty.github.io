@@ -5,29 +5,31 @@ draft: false
 toc: false
 images:
 tags:
-  - untagged
+  - proxmox, security, dns
 ---
 
-If you're a fan of **Proxmox Virtualization Environment** (PVE) like I am, you'll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a **free** service called **[Let'sEncrypt](https://letsencrypt.org)** to acquire a valid SSL certificate.
+If you're a fan of **Proxmox Virtualization Environment** (PVE) like I am, you'll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a **free** service called **[Let's Encrypt](https://letsencrypt.org)** to acquire a valid SSL certificate.
 
-Let'sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you've proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a "valid" TLS connection between your web browser and the server.
+Let's Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you've proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a "valid" TLS connection between your web browser and the server.
 
-This is much preferable to the default self-signed certificates that come installed "out-of-the-box," generating security warnings and generally make it slightly less pleasant to administer your Proxmox box.
+This is much preferable to the default self-signed certificates that come installed "out-of-the-box," generating security warnings and generally making it slightly less pleasant to administer your Proxmox box.
 
-In this example, since I'm a fan of **[Linode](https://linode.com)** and their hosting services, and because their DNS service is supported as a plugin by **certbot** (a command-line tool for interacting with Let'sEncrypt), I'll be using Linode DNS for the validation process.
+In this example, since I'm a fan of **[Linode](https://linode.com)** and their hosting services, and because their DNS API [is supported](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438) for Let's Encrypt DNS challenges, I'll be using Linode DNS for the validation process.
 
 ### Creating a Linode API Token
 
 Begin by creating an **API Token** in your Linode account that has permissions to create and delete DNS records.
 
-1. Log into Linode in your web browser
-2. Click your profile avatar in upper right -> Click **API Tokens**
+1. Log into **Linode** in your web browser
+2. Click your **Profile** avatar in upper right -> Click **API Tokens**
 
 ![API Tokens](images/01.png)
 \
 3. Click **Create Personal Access Token**
 \
-4. Set name & expiry date (if desired) and change **Domains** to Read/Write
+4. Create a **Label** (name) and set an **Expiry Date** (if desired)
+\
+5. Since this token is only for **DNS** (aka Domains), set all categories to *None*, and change **Domains** to *Read/Write*
 
 ![Token Permissions](images/02.png)
 
@@ -41,7 +43,7 @@ From the left-hand menu, navigate to **Datacenter** -> **ACME**.
 
 Under the **Accounts** section, click **Add**.
 
-1. Create an account for *LetsEncrypt Staging* by creating a descriptive account name and providing your email address.
+1. Create an account for *Let's Encrypt Staging* by creating a descriptive account name and providing your email address.
 2. From the **ACME Directory** drop-down menu, select **Let's Encrypt V2 Staging**.
 3. Click the box to **Accept TOS** (Terms of Service)
 4. Click **Register**
@@ -51,7 +53,7 @@ Under the **Accounts** section, click **Add**.
 
 ![Add Account](images/04.png)
 
-> 📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of LetsEncrypt. Using the *Staging* version allows you to test the setup without the risk of getting temporarily rate-limited by LetsEncrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is *untrusted* by default in all browsers. Once you get the process working in Staging, switching over to the real Let's Encrypt environment will get you *trusted* certificates.
+> 📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of Let's Encrypt. Using the *Staging* version allows you to test the setup without the risk of getting temporarily rate-limited by Let's Encrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is *untrusted* by default in all browsers. Once you get the process working in Staging, switching over to the real Let's Encrypt environment will get you *trusted* certificates.
 
 Under the **Challenge Plugins** section, click **Add**.
 
@@ -88,8 +90,14 @@ Lastly, back at the left-side Proxmox VE menu, select the *PVE node* that needs 
 
 Assuming everything is set up correctly, you should be able to watch your PVE server run through a DNS challenge, with the temporary TXT verification records being created and deleted automatically through the Linode API. Once complete, your Proxmox VE server will automatically install the new certificate and restart the web GUI.
 
-If you used the *Let's Encrypt V2 Staging* account for the first attempt, you'll still be seeing an invalid SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value... *right?*), then run through the above **steps 1-6** again but change the **Account** to the *non-Staging* version.
+> 📝 If the DNS challenge process fails, the first culprit is likely going to be the *validation delay*. If you've already set the validation delay to 60 seconds, try increasing it even higher to 90 seconds, 120 seconds, or even more. This should allow for plenty of time for the DNS TXT record(s) to be created and reachable globally.
 
-Once the validation process completes for the **real** Let's Encrypt validation environment and the GUI restarts again, you should be seeing a *valid* SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). Enjoy!
+> 📝 Additionally, when logged into [Linode](https://linode.com), watch the notifications section in the GUI, which will report to you in real-time when the DNS TXT records are created or deleted. If you aren't seeing any activity for DNS changes in your Linode account when your PVE node is running the Let's Encrypt process, verify that you entered the Linode API key correctly as outlined under **Challenge Plugins** above, and ensure you're using the **Linode_V4** API (which is the most current version as of the writing of this blog post).
+
+If you used the *Let's Encrypt V2 Staging* account for the first attempt, you'll still be seeing an **invalid** SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value... *right?*), then run through the above **steps 1-6** again but change the **Account** to the *non-Staging* version.
+
+Once the validation process completes for the **real** Let's Encrypt validation environment and the GUI restarts again, you should be seeing a *valid* (trusted) SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). And conveniently, the renewal process will happen automatically every 90 days to avoid the certificate expiring.
+
+Enjoy!
 
 ![SSL Certificates Everywhere!](images/08.jpg)

@@ -1,15 +1,15 @@
 ---
 title: "Python's ipaddress Module"
-date: 2022-07-09T22:30:30-04:00
+date: 2022-08-09T22:30:30-04:00
 draft: false
 toc: true
 images:
 tags:
-  - python
+  - python, networking
 ---
 ## Introduction
 
-*(some familiarity with Python is assumed for this article)*
+> 📝 (Note: some [familiarity](http://localhost:1313/2022/07/16/beginner-python-examples/) with Python is assumed for this article)
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 
@@ -97,7 +97,7 @@ Error: "would you like a toasted tea-cake?" is not a valid host IPv4 address
 ['100.111.222.3', '8.8.8.8', '172.16.1.1', '192.0.2.42', '198.51.100.42', '203.0.113.42']
 ```
 
-Additionally, there are some attributes that allow you to determine what sort of IPv4 address you're dealing with - public, private, multicast, loopback, etc.; or format it as a reverse pointer (PTR) DNS record:
+Additionally, there are some properties that allow you to determine what sort of IPv4 address you're dealing with - public, private, multicast, loopback, etc.; or format it as a reverse pointer (PTR) DNS record:
 
 ```python
 >>> ipaddress.IPv4Address("8.8.8.8").is_global
@@ -132,7 +132,7 @@ Traceback (most recent call last):
 ValueError: 192.0.2.1/24 has host bits set
 ```
 
-The *IPv4Network* class has all the attributes of the *IPv4Address* class, as well as a few more, to get information like the subnet's broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):
+The *IPv4Network* class has all the same attributes and properties of the *IPv4Address* class, as well as a few more, to get information like the subnet's broadcast address, long-form subnet mask, host (wildcard) mask, etc. (refer to the official docs for more; these are just a few examples):
 
 ```python
 >>> ipaddress.IPv4Network("192.0.2.0/24").network_address
@@ -160,14 +160,16 @@ False
 
 ### IPv4Interface
 
-This brings us to the *IPv4Interface* class. Think of this almost like a combination of *IPv4Address* and *IPv4Network*; it takes both a host IP address *and* a CIDR mask (a syntax style frequently seen on network device interfaces):
+This brings us to the *IPv4Interface* class. Think of this almost like a combination of *IPv4Address* and *IPv4Network*; it takes both a host IP address *and* a CIDR mask, a syntax which is frequently seen on *network device interfaces*:
 
 ```python
 >>> ipaddress.IPv4Interface("192.168.42.10/24")
 IPv4Interface('192.168.42.10/24')
 ```
 
-This could also be used to describe both a host on a network and its subnet mask with a single object. Consider the following example: with a consistently followed standard of using the first usable address in a subnet as the default gateway, all the typically relevant IP-related data (host address, netmask, gateway) could be deduced from a single *IPv4Interface* object:
+This could also be used to describe both a *host* on a network and its *subnet mask* with a single object.
+
+Consider the following example: with a standard of using the first usable address in a subnet as the default gateway, all the typically relevant IP-related data (host address, subnet mask, default gateway) could be deduced from a *single* **IPv4Interface** object:
 
 ```python
 my_host = ipaddress.IPv4Interface("172.16.99.42/24")

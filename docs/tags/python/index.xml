@@ -6,16 +6,15 @@
     <description>Recent content in python on Packets &amp; Python: Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 09 Jul 2022 22:30:30 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Python&#39;s ipaddress Module</title>
-      <link>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</link>
-      <pubDate>Sat, 09 Jul 2022 22:30:30 -0400</pubDate>
+      <title>Beginner Python Examples for Network Engineers</title>
+      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</link>
+      <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
       
-      <guid>https://mattpetty.github.io/2022/07/09/pythons-ipaddress-module/</guid>
-      <description>Introduction (some familiarity with Python is assumed for this article)
-Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&amp;rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
-The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
+      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</guid>
+      <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.
+Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a group of items is called a List (there are also multiple other groupings in Python, but that&amp;rsquo;s a subject for another blog post).</description>
     </item>
     
   </channel>

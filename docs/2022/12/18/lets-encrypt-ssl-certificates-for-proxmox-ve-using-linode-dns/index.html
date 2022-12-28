@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matt Petty ">
-<meta name="description" content="If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;sEncrypt to acquire a valid SSL certificate.
-Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server." />
-<meta name="keywords" content="homepage, blog, untagged" />
+<meta name="description" content="If you&amp;rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&amp;rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&amp;rsquo;s Encrypt to acquire a valid SSL certificate.
+Let&amp;rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&amp;rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &amp;ldquo;valid&amp;rdquo; TLS connection between your web browser and the server." />
+<meta name="keywords" content="homepage, blog, proxmox, security, dns" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/" />
@@ -40,23 +40,23 @@ Let&amp;rsquo;sEncrypt works by first making you verify ownership of a domain or
 
 
 <meta itemprop="name" content="Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS">
-<meta itemprop="description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;sEncrypt to acquire a valid SSL certificate.
-Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server."><meta itemprop="datePublished" content="2022-12-18T23:42:00-05:00" />
+<meta itemprop="description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;s Encrypt to acquire a valid SSL certificate.
+Let&rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server."><meta itemprop="datePublished" content="2022-12-18T23:42:00-05:00" />
 <meta itemprop="dateModified" content="2022-12-18T23:42:00-05:00" />
-<meta itemprop="wordCount" content="872"><meta itemprop="image" content="https://mattpetty.github.io"/>
-<meta itemprop="keywords" content="untagged," />
+<meta itemprop="wordCount" content="1053"><meta itemprop="image" content="https://mattpetty.github.io"/>
+<meta itemprop="keywords" content="proxmox, security, dns," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://mattpetty.github.io"/>
 
 <meta name="twitter:title" content="Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS"/>
-<meta name="twitter:description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;sEncrypt to acquire a valid SSL certificate.
-Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server."/>
+<meta name="twitter:description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;s Encrypt to acquire a valid SSL certificate.
+Let&rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server."/>
 
 
 
     <meta property="og:title" content="Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS" />
-<meta property="og:description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;sEncrypt to acquire a valid SSL certificate.
-Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server." />
+<meta property="og:description" content="If you&rsquo;re a fan of Proxmox Virtualization Environment (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a free service called Let&rsquo;s Encrypt to acquire a valid SSL certificate.
+Let&rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/" /><meta property="og:image" content="https://mattpetty.github.io"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-18T23:42:00-05:00" />
@@ -154,21 +154,23 @@ Let&rsquo;sEncrypt works by first making you verify ownership of a domain or ser
       
 
       <div class="post-content">
-        <p>If you&rsquo;re a fan of <strong>Proxmox Virtualization Environment</strong> (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a <strong>free</strong> service called <strong><a href="https://letsencrypt.org">Let&rsquo;sEncrypt</a></strong> to acquire a valid SSL certificate.</p>
-<p>Let&rsquo;sEncrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server.</p>
-<p>This is much preferable to the default self-signed certificates that come installed &ldquo;out-of-the-box,&rdquo; generating security warnings and generally make it slightly less pleasant to administer your Proxmox box.</p>
-<p>In this example, since I&rsquo;m a fan of <strong><a href="https://linode.com">Linode</a></strong> and their hosting services, and because their DNS service is supported as a plugin by <strong>certbot</strong> (a command-line tool for interacting with Let&rsquo;sEncrypt), I&rsquo;ll be using Linode DNS for the validation process.</p>
+        <p>If you&rsquo;re a fan of <strong>Proxmox Virtualization Environment</strong> (PVE) like I am, you&rsquo;ll also likely be a fan of the fact that your Proxmox VE server(s) can utilize a <strong>free</strong> service called <strong><a href="https://letsencrypt.org">Let&rsquo;s Encrypt</a></strong> to acquire a valid SSL certificate.</p>
+<p>Let&rsquo;s Encrypt works by first making you verify ownership of a domain or server, typically using either an HTTP connection to the server, or through a specific DNS record lookup. Once you&rsquo;ve proven ownership, a certificate is automatically generated and downloaded (and optionally auto-installed on the server) to provide a &ldquo;valid&rdquo; TLS connection between your web browser and the server.</p>
+<p>This is much preferable to the default self-signed certificates that come installed &ldquo;out-of-the-box,&rdquo; generating security warnings and generally making it slightly less pleasant to administer your Proxmox box.</p>
+<p>In this example, since I&rsquo;m a fan of <strong><a href="https://linode.com">Linode</a></strong> and their hosting services, and because their DNS API <a href="https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438">is supported</a> for Let&rsquo;s Encrypt DNS challenges, I&rsquo;ll be using Linode DNS for the validation process.</p>
 <h3 id="creating-a-linode-api-token">Creating a Linode API Token</h3>
 <p>Begin by creating an <strong>API Token</strong> in your Linode account that has permissions to create and delete DNS records.</p>
 <ol>
-<li>Log into Linode in your web browser</li>
-<li>Click your profile avatar in upper right -&gt; Click <strong>API Tokens</strong></li>
+<li>Log into <strong>Linode</strong> in your web browser</li>
+<li>Click your <strong>Profile</strong> avatar in upper right -&gt; Click <strong>API Tokens</strong></li>
 </ol>
 <p><img src="images/01.png" alt="API Tokens">
 <br>
 3. Click <strong>Create Personal Access Token</strong>
 <br>
-4. Set name &amp; expiry date (if desired) and change <strong>Domains</strong> to Read/Write</p>
+4. Create a <strong>Label</strong> (name) and set an <strong>Expiry Date</strong> (if desired)
+<br>
+5. Since this token is only for <strong>DNS</strong> (aka Domains), set all categories to <em>None</em>, and change <strong>Domains</strong> to <em>Read/Write</em></p>
 <p><img src="images/02.png" alt="Token Permissions"></p>
 <blockquote>
 <p>📝 Depending on your domain and use-case, it&rsquo;s highly advisable to set the <em>Default TTL</em> for your Linode DNS records to something very low (ideally 30 seconds, or 2 minutes), at least while you&rsquo;re setting up Let&rsquo;s Encrypt. Setting the TTL lower helps prevent the ephemeral DNS records used for the DNS challenge from being cached for long periods of time, which can be problematic if a validation fails and you need to try again.</p>
@@ -178,7 +180,7 @@ Let&rsquo;sEncrypt works by first making you verify ownership of a domain or ser
 <p>From the left-hand menu, navigate to <strong>Datacenter</strong> -&gt; <strong>ACME</strong>.</p>
 <p>Under the <strong>Accounts</strong> section, click <strong>Add</strong>.</p>
 <ol>
-<li>Create an account for <em>LetsEncrypt Staging</em> by creating a descriptive account name and providing your email address.</li>
+<li>Create an account for <em>Let&rsquo;s Encrypt Staging</em> by creating a descriptive account name and providing your email address.</li>
 <li>From the <strong>ACME Directory</strong> drop-down menu, select <strong>Let&rsquo;s Encrypt V2 Staging</strong>.</li>
 <li>Click the box to <strong>Accept TOS</strong> (Terms of Service)</li>
 <li>Click <strong>Register</strong></li>
@@ -187,7 +189,7 @@ Let&rsquo;sEncrypt works by first making you verify ownership of a domain or ser
 <p><img src="images/03.png" alt="Add Staging Account"></p>
 <p><img src="images/04.png" alt="Add Account"></p>
 <blockquote>
-<p>📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of LetsEncrypt. Using the <em>Staging</em> version allows you to test the setup without the risk of getting temporarily rate-limited by LetsEncrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is <em>untrusted</em> by default in all browsers. Once you get the process working in Staging, switching over to the real Let&rsquo;s Encrypt environment will get you <em>trusted</em> certificates.</p>
+<p>📝 I strongly suggest creating accounts for both Staging and Non-Staging versions of Let&rsquo;s Encrypt. Using the <em>Staging</em> version allows you to test the setup without the risk of getting temporarily rate-limited by Let&rsquo;s Encrypt for too many failures in a row. Staging certificates follow the same process as the real certificates, but their root CA is <em>untrusted</em> by default in all browsers. Once you get the process working in Staging, switching over to the real Let&rsquo;s Encrypt environment will get you <em>trusted</em> certificates.</p>
 </blockquote>
 <p>Under the <strong>Challenge Plugins</strong> section, click <strong>Add</strong>.</p>
 <ol>
@@ -221,8 +223,15 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
 <br>
 6. Once you&rsquo;ve added the new <strong>ACME</strong> entry, click <strong>Order Certificates Now</strong> to run the Let&rsquo;s Encrypt validation challenge.</p>
 <p>Assuming everything is set up correctly, you should be able to watch your PVE server run through a DNS challenge, with the temporary TXT verification records being created and deleted automatically through the Linode API. Once complete, your Proxmox VE server will automatically install the new certificate and restart the web GUI.</p>
-<p>If you used the <em>Let&rsquo;s Encrypt V2 Staging</em> account for the first attempt, you&rsquo;ll still be seeing an invalid SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value&hellip; <em>right?</em>), then run through the above <strong>steps 1-6</strong> again but change the <strong>Account</strong> to the <em>non-Staging</em> version.</p>
-<p>Once the validation process completes for the <strong>real</strong> Let&rsquo;s Encrypt validation environment and the GUI restarts again, you should be seeing a <em>valid</em> SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). Enjoy!</p>
+<blockquote>
+<p>📝 If the DNS challenge process fails, the first culprit is likely going to be the <em>validation delay</em>. If you&rsquo;ve already set the validation delay to 60 seconds, try increasing it even higher to 90 seconds, 120 seconds, or even more. This should allow for plenty of time for the DNS TXT record(s) to be created and reachable globally.</p>
+</blockquote>
+<blockquote>
+<p>📝 Additionally, when logged into <a href="https://linode.com">Linode</a>, watch the notifications section in the GUI, which will report to you in real-time when the DNS TXT records are created or deleted. If you aren&rsquo;t seeing any activity for DNS changes in your Linode account when your PVE node is running the Let&rsquo;s Encrypt process, verify that you entered the Linode API key correctly as outlined under <strong>Challenge Plugins</strong> above, and ensure you&rsquo;re using the <strong>Linode_V4</strong> API (which is the most current version as of the writing of this blog post).</p>
+</blockquote>
+<p>If you used the <em>Let&rsquo;s Encrypt V2 Staging</em> account for the first attempt, you&rsquo;ll still be seeing an <strong>invalid</strong> SSL certificate error in your browser at this point. Wait a few minutes (you remembered to set the default TTL to a sufficiently low value&hellip; <em>right?</em>), then run through the above <strong>steps 1-6</strong> again but change the <strong>Account</strong> to the <em>non-Staging</em> version.</p>
+<p>Once the validation process completes for the <strong>real</strong> Let&rsquo;s Encrypt validation environment and the GUI restarts again, you should be seeing a <em>valid</em> (trusted) SSL certificate on your Proxmox VE now (you may need to close/reopen the browser window). And conveniently, the renewal process will happen automatically every 90 days to avoid the certificate expiring.</p>
+<p>Enjoy!</p>
 <p><img src="images/08.jpg" alt="SSL Certificates Everywhere!"></p>
 
       </div>
@@ -235,7 +244,7 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
-        <span class="tag"><a href="https://mattpetty.github.io/tags/untagged/">untagged</a></span>
+        <span class="tag"><a href="https://mattpetty.github.io/tags/proxmox-security-dns/">proxmox, security, dns</a></span>
         
     </p>
 
@@ -249,7 +258,7 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        872 Words
+        1053 Words
       </p>
 
       <p>
@@ -278,8 +287,8 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
 
             
             <span class="button next">
-                <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples/">
-                    <span class="button__text">Beginner Python Examples</span>
+                <a href="https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/">
+                    <span class="button__text">NAT Control on the Cisco ASA</span>
                     <span class="button__icon">→</span>
                 </a>
             </span>
