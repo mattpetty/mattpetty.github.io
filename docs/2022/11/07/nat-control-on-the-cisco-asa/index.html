@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matt Petty ">
-<meta name="description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+<meta name="description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether." />
-<meta name="keywords" content="homepage, blog, cisco, asa, firewall, networking, nat, security" />
+<meta name="keywords" content="homepage, blog, cisco, networking, security" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/" />
@@ -40,22 +40,22 @@ NAT Control Enter NAT Control, which over the course of its lifespan went from b
 
 
 <meta itemprop="name" content="NAT Control on the Cisco ASA">
-<meta itemprop="description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+<meta itemprop="description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether."><meta itemprop="datePublished" content="2022-11-07T13:46:18-05:00" />
 <meta itemprop="dateModified" content="2022-11-07T13:46:18-05:00" />
-<meta itemprop="wordCount" content="435"><meta itemprop="image" content="https://mattpetty.github.io"/>
-<meta itemprop="keywords" content="cisco, asa, firewall, networking, nat, security," />
+<meta itemprop="wordCount" content="431"><meta itemprop="image" content="https://mattpetty.github.io"/>
+<meta itemprop="keywords" content="cisco, networking, security," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://mattpetty.github.io"/>
 
 <meta name="twitter:title" content="NAT Control on the Cisco ASA"/>
-<meta name="twitter:description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+<meta name="twitter:description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether."/>
 
 
 
     <meta property="og:title" content="NAT Control on the Cisco ASA" />
-<meta property="og:description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+<meta property="og:description" content="Introduction The history of NAT (network address translation) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; evolved over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/" /><meta property="og:image" content="https://mattpetty.github.io"/><meta property="article:section" content="posts" />
@@ -155,11 +155,11 @@ NAT Control Enter NAT Control, which over the course of its lifespan went from b
 
       <div class="post-content">
         <h2 id="introduction">Introduction</h2>
-<p>The history of <strong>NAT</strong> (<a href="https://en.wikipedia.org/wiki/Network_address_translation">network address translation</a>) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; <em>evolved</em> over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.</p>
+<p>The history of <strong>NAT</strong> (<a href="https://en.wikipedia.org/wiki/Network_address_translation">network address translation</a>) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; <em>evolved</em> over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over different code versions, but today I want to take a quick overview of <em>default</em> NAT behavior on Cisco’s firewalls and its evolution.</p>
 <h2 id="nat-control">NAT Control</h2>
-<p>Enter <strong>NAT Control</strong>, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the device, but also on your mental model of how you might expect the firewall to function.</p>
+<p>Enter <strong>NAT Control</strong>, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about the (probably Cisco-specific) concept of NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the firewall, but also on your mental model of how you might expect a firewall to function.</p>
 <h2 id="origin">Origin</h2>
-<p>So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco&rsquo;s <strong><a href="https://en.wikipedia.org/wiki/Cisco_PIX">PIX</a></strong> firewall <em>required</em> NAT (or a NAT <em>exemption</em>) for <em>all</em> traffic passing between any two firewall interfaces, up through the maximum PIX OS version <em>6.3</em>.</p>
+<p>So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco&rsquo;s <strong><a href="https://en.wikipedia.org/wiki/Cisco_PIX">PIX</a></strong> firewall <em>required NAT</em> (or a <em>NAT exemption</em>) for <em>all</em> traffic passing between any two firewall interfaces, up through the maximum PIX OS version <em>6.3</em>.</p>
 <p>What this means is that basically an IP packet couldn&rsquo;t pass through the firewall untouched unless a specific NAT exemption was created (essentially, a rule saying “don’t NAT this specific traffic”).</p>
 <p><img src="images/01.jpg" alt="One Does Not Simply Pass Through NAT Control"></p>
 <h2 id="evolution">Evolution</h2>
@@ -180,7 +180,7 @@ NAT Control Enter NAT Control, which over the course of its lifespan went from b
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
-        <span class="tag"><a href="https://mattpetty.github.io/tags/cisco-asa-firewall-networking-nat-security/">cisco, asa, firewall, networking, nat, security</a></span>
+        <span class="tag"><a href="https://mattpetty.github.io/tags/cisco-networking-security/">cisco, networking, security</a></span>
         
     </p>
 
@@ -194,7 +194,7 @@ NAT Control Enter NAT Control, which over the course of its lifespan went from b
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        435 Words
+        431 Words
       </p>
 
       <p>

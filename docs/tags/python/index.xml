@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 16 Jul 2022 22:30:12 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Beginner Python Examples for Network Engineers</title>
-      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</link>
+      <title>Beginner Python Examples for Network Engineers: Part 1</title>
+      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</link>
       <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
       
-      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</guid>
+      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</guid>
       <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.
 Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a group of items is called a List (there are also multiple other groupings in Python, but that&amp;rsquo;s a subject for another blog post).</description>
     </item>

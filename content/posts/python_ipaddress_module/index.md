@@ -9,7 +9,7 @@ tags:
 ---
 ## Introduction
 
-> 📝 (Note: some [familiarity](http://localhost:1313/2022/07/16/beginner-python-examples/) with Python is assumed for this article)
+> 📝 (Note: some [familiarity](https://mattpetty.github.io/2022/07/16/beginner-python-examples/) with Python is assumed for this article)
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 
@@ -147,7 +147,7 @@ IPv4Address('0.0.0.255')
 
 (notice that many of the returned addresses are actually IPv4Address objects!)
 
-Also, using *IPv4Address* and *IPv4Network* objects together enables the ability to quickly determine if a given address is part of a given subnet:
+Also, using *IPv4Address* and *IPv4Network* objects together enables the ability to quickly determine if a given address is part of a given subnet using the **"in"** keyword:
 
 ```python
 >>> ipaddress.IPv4Address("192.0.2.42") in ipaddress.IPv4Network("192.0.2.0/24")

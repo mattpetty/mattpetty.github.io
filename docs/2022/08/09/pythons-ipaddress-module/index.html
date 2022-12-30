@@ -45,7 +45,7 @@ The official documentation is here, but read on for a basic summary of this modu
 Since version 3.3 (released September 2012), Python has included an ipaddress module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3&#43; installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 The official documentation is here, but read on for a basic summary of this module and some helpful uses for it."><meta itemprop="datePublished" content="2022-08-09T22:30:30-04:00" />
 <meta itemprop="dateModified" content="2022-08-09T22:30:30-04:00" />
-<meta itemprop="wordCount" content="876"><meta itemprop="image" content="https://mattpetty.github.io"/>
+<meta itemprop="wordCount" content="880"><meta itemprop="image" content="https://mattpetty.github.io"/>
 <meta itemprop="keywords" content="python, networking," />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://mattpetty.github.io"/>
@@ -179,7 +179,7 @@ The official documentation is here, but read on for a basic summary of this modu
       <div class="post-content">
         <h2 id="introduction">Introduction</h2>
 <blockquote>
-<p>📝 (Note: some <a href="http://localhost:1313/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
+<p>📝 (Note: some <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
 </blockquote>
 <p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
 <p>The official documentation is <a href="https://docs.python.org/3/library/ipaddress.html">here</a>, but read on for a basic summary of this module and some helpful uses for it.</p>
@@ -272,7 +272,7 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>hostmask
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;0.0.0.255&#39;</span>)
 </span></span></code></pre></div><p>(notice that many of the returned addresses are actually IPv4Address objects!)</p>
-<p>Also, using <em>IPv4Address</em> and <em>IPv4Network</em> objects together enables the ability to quickly determine if a given address is part of a given subnet:</p>
+<p>Also, using <em>IPv4Address</em> and <em>IPv4Network</em> objects together enables the ability to quickly determine if a given address is part of a given subnet using the <strong>&ldquo;in&rdquo;</strong> keyword:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;192.0.2.42&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;10.86.75.39&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;10.0.0.0/8&#34;</span>)
@@ -327,7 +327,7 @@ The official documentation is here, but read on for a basic summary of this modu
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        876 Words
+        880 Words
       </p>
 
       <p>
@@ -363,8 +363,8 @@ The official documentation is here, but read on for a basic summary of this modu
 
             
             <span class="button next">
-                <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/">
-                    <span class="button__text">Beginner Python Examples for Network Engineers</span>
+                <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/">
+                    <span class="button__text">Beginner Python Examples for Network Engineers: Part 1</span>
                     <span class="button__icon">→</span>
                 </a>
             </span>

@@ -104,14 +104,14 @@ LINODE_V4_API_KEY=<em>your-api-key-goes-here</em></li>
             <pubDate>Mon, 07 Nov 2022 13:46:18 -0500</pubDate>
             
             <guid>https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/</guid>
-            <description>Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+            <description>Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>The history of <strong>NAT</strong> (<a href="https://en.wikipedia.org/wiki/Network_address_translation">network address translation</a>) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; <em>evolved</em> over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.</p>
+<p>The history of <strong>NAT</strong> (<a href="https://en.wikipedia.org/wiki/Network_address_translation">network address translation</a>) behaviors on Cisco&rsquo;s ASA firewalls has certainly&hellip; <em>evolved</em> over the years. In a future blog post, I&rsquo;ll be covering the basics of specific NAT types and how they&rsquo;ve changed over different code versions, but today I want to take a quick overview of <em>default</em> NAT behavior on Cisco’s firewalls and its evolution.</p>
 <h2 id="nat-control">NAT Control</h2>
-<p>Enter <strong>NAT Control</strong>, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the device, but also on your mental model of how you might expect the firewall to function.</p>
+<p>Enter <strong>NAT Control</strong>, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about the (probably Cisco-specific) concept of NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the firewall, but also on your mental model of how you might expect a firewall to function.</p>
 <h2 id="origin">Origin</h2>
-<p>So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco&rsquo;s <strong><a href="https://en.wikipedia.org/wiki/Cisco_PIX">PIX</a></strong> firewall <em>required</em> NAT (or a NAT <em>exemption</em>) for <em>all</em> traffic passing between any two firewall interfaces, up through the maximum PIX OS version <em>6.3</em>.</p>
+<p>So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco&rsquo;s <strong><a href="https://en.wikipedia.org/wiki/Cisco_PIX">PIX</a></strong> firewall <em>required NAT</em> (or a <em>NAT exemption</em>) for <em>all</em> traffic passing between any two firewall interfaces, up through the maximum PIX OS version <em>6.3</em>.</p>
 <p>What this means is that basically an IP packet couldn&rsquo;t pass through the firewall untouched unless a specific NAT exemption was created (essentially, a rule saying “don’t NAT this specific traffic”).</p>
 <p><img src="images/01.jpg" alt="One Does Not Simply Pass Through NAT Control"></p>
 <h2 id="evolution">Evolution</h2>
@@ -135,7 +135,7 @@ Since version 3.3 (released September 2012), Python has included an ipaddress mo
 The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <blockquote>
-<p>📝 (Note: some <a href="http://localhost:1313/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
+<p>📝 (Note: some <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
 </blockquote>
 <p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
 <p>The official documentation is <a href="https://docs.python.org/3/library/ipaddress.html">here</a>, but read on for a basic summary of this module and some helpful uses for it.</p>
@@ -228,7 +228,7 @@ The official documentation is here, but read on for a basic summary of this modu
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)<span style="color:#f92672">.</span>hostmask
 </span></span><span style="display:flex;"><span>IPv4Address(<span style="color:#e6db74">&#39;0.0.0.255&#39;</span>)
 </span></span></code></pre></div><p>(notice that many of the returned addresses are actually IPv4Address objects!)</p>
-<p>Also, using <em>IPv4Address</em> and <em>IPv4Network</em> objects together enables the ability to quickly determine if a given address is part of a given subnet:</p>
+<p>Also, using <em>IPv4Address</em> and <em>IPv4Network</em> objects together enables the ability to quickly determine if a given address is part of a given subnet using the <strong>&ldquo;in&rdquo;</strong> keyword:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;192.0.2.42&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;192.0.2.0/24&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> ipaddress<span style="color:#f92672">.</span>IPv4Address(<span style="color:#e6db74">&#34;10.86.75.39&#34;</span>) <span style="color:#f92672">in</span> ipaddress<span style="color:#f92672">.</span>IPv4Network(<span style="color:#e6db74">&#34;10.0.0.0/8&#34;</span>)
@@ -262,27 +262,27 @@ The official documentation is here, but read on for a basic summary of this modu
         </item>
         
         <item>
-            <title>Beginner Python Examples for Network Engineers</title>
-            <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</link>
+            <title>Beginner Python Examples for Network Engineers: Part 1</title>
+            <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</link>
             <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
             
-            <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</guid>
+            <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</guid>
             <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.
 Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a group of items is called a List (there are also multiple other groupings in Python, but that&amp;rsquo;s a subject for another blog post).</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <p>For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.</p>
 <h2 id="examples">Examples</h2>
-<p>For these first two examples, let&rsquo;s imagine some data, such as a list of MAC addresses. In Python, a <em>group of items</em> is called a <strong>List</strong> (there are also multiple other groupings in Python, but that&rsquo;s a subject for another blog post). For this particular list of MAC addresses, I&rsquo;ll use a list of <em>strings</em>, which is really just another word for &ldquo;text.&rdquo; Lists are represented via square brackets <strong>[]</strong>, with each item separated by commas, and strings are enclosed in quotes <strong>&quot;&quot;</strong> (single or double, your choice):</p>
+<p>For these first two examples, let&rsquo;s imagine some data, such as a list of MAC addresses. In Python, a <em>group of items</em> is called a <strong>List</strong> (there are also multiple other groupings in Python, but that&rsquo;s a subject for another blog post). For this particular list of MAC addresses, I&rsquo;ll use a list of <em>strings</em>, which you can think of as another word for &ldquo;text.&rdquo; Lists are represented via square brackets <strong>[]</strong>, with each item separated by commas, and strings are enclosed in quotes <strong>&quot;&quot;</strong> (single or double, your choice):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> known_mac_addresses <span style="color:#f92672">=</span> [
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
-</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;00-11-22-33-44-55&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;01-23-45-67-89-0A&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;AA-BB-CC-DD-EE-FF&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;36-56-9A-B4-0E-ED&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;01-EF-AF-BC-DD-23&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;86-75-30-98-67-53&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;AB-CD-EF-01-23-45&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;89-46-C3-69-D8-D4&#34;</span>,
+</span></span><span style="display:flex;"><span>    ]
 </span></span></code></pre></div><blockquote>
 <p>📝 If you stare at the list above long enough, you may notice that the last item of the list ends with a comma, even though there isn&rsquo;t another item that comes after it. This is a matter of personal preference, but trailing commas are optional in Python lists (as the above example illustrates, I prefer them myself for readability, and for ease of any future additions to the list, but also mainly because that&rsquo;s what the <em><a href="https://github.com/psf/black">Black</a></em> code formatter does, along with double-quotes for strings).</p>
 </blockquote>
@@ -308,7 +308,8 @@ Examples For these first two examples, let&amp;rsquo;s imagine some data, such a
 </span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_to_find<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
 </span></span></code></pre></div><p>The code above shows a way of specifying an exact match for a given string within a list of strings. Let&rsquo;s focus just on that <strong>if</strong> statement:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> mac_to_find <span style="color:#f92672">in</span> known_mac_addresses:
-</span></span></code></pre></div><p>Running the above code should produce something like:</p>
+</span></span></code></pre></div><p>The code can be read pretty much literally; it&rsquo;s checking for the presence of something specific <em>within</em> a larger string (such as a block of text).</p>
+<p>Running the above code should produce something like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">...</span> 
 </span></span><span style="display:flex;"><span>Found <span style="color:#ae81ff">86</span><span style="color:#f92672">-</span><span style="color:#ae81ff">75</span><span style="color:#f92672">-</span><span style="color:#ae81ff">30</span><span style="color:#f92672">-</span><span style="color:#ae81ff">98</span><span style="color:#f92672">-</span><span style="color:#ae81ff">67</span><span style="color:#f92672">-</span><span style="color:#ae81ff">53</span> <span style="color:#f92672">in</span> list of known MAC addresses<span style="color:#960050;background-color:#1e0010">!</span>
 </span></span></code></pre></div><p>Without having had to write any sort of regular expression or come up with a kludgy method of string matching, this ability is built right in to Python using the <strong>in</strong> keyword.</p>
@@ -338,7 +339,7 @@ Examples For these first two examples, let&amp;rsquo;s imagine some data, such a
 </span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Found </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses!&#34;</span>)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;* Could not find </span><span style="color:#e6db74">{</span>mac_address<span style="color:#e6db74">}</span><span style="color:#e6db74"> in list of known MAC addresses.&#34;</span>)
-</span></span></code></pre></div><p>Once again, let&rsquo;s focus on a specific line from the above example:</p>
+</span></span></code></pre></div><p>Again, let&rsquo;s focus on a specific line from the above example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mac_address <span style="color:#f92672">in</span> maclist_to_find:
 </span></span></code></pre></div><p>By using the <strong>for</strong> loop, the above code will &ldquo;walk&rdquo; through the list <em>maclist_to_find</em> and compare each individual item in it (that is, each desired MAC address) against the initial list of known MAC addresses.</p>
 <p>Running the example code above will produce the following result:</p>

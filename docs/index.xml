@@ -23,7 +23,7 @@ Let&amp;rsquo;s Encrypt works by first making you verify ownership of a domain o
       <pubDate>Mon, 07 Nov 2022 13:46:18 -0500</pubDate>
       
       <guid>https://mattpetty.github.io/2022/11/07/nat-control-on-the-cisco-asa/</guid>
-      <description>Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+      <description>Introduction The history of NAT (network address translation) behaviors on Cisco&amp;rsquo;s ASA firewalls has certainly&amp;hellip; evolved over the years. In a future blog post, I&amp;rsquo;ll be covering the basics of specific NAT types and how they&amp;rsquo;ve changed over different code versions, but today I want to take a quick overview of default NAT behavior on Cisco’s firewalls and its evolution.
 NAT Control Enter NAT Control, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether.</description>
     </item>
     
@@ -39,11 +39,11 @@ The official documentation is here, but read on for a basic summary of this modu
     </item>
     
     <item>
-      <title>Beginner Python Examples for Network Engineers</title>
-      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</link>
+      <title>Beginner Python Examples for Network Engineers: Part 1</title>
+      <link>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</link>
       <pubDate>Sat, 16 Jul 2022 22:30:12 -0400</pubDate>
       
-      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers/</guid>
+      <guid>https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/</guid>
       <description>Introduction For anyone new to Python, or looking for a quick refresher on the basics, consider this article an overview of various ways to get started reading, modifying, and working with data in Python. Naturally, given the nature of this blog, this post will take a Network Engineering-centric approach in the examples.
 Examples For these first two examples, let&amp;rsquo;s imagine some data, such as a list of MAC addresses. In Python, a group of items is called a List (there are also multiple other groupings in Python, but that&amp;rsquo;s a subject for another blog post).</description>
     </item>

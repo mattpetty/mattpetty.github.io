@@ -5,21 +5,21 @@ draft: false
 toc: false
 images:
 tags:
-  - cisco, asa, firewall, networking, nat, security
+  - cisco, networking, security
 ---
 
 
 ## Introduction
 
-The history of **NAT** ([network address translation](https://en.wikipedia.org/wiki/Network_address_translation)) behaviors on Cisco's ASA firewalls has certainly... *evolved* over the years. In a future blog post, I'll be covering the basics of specific NAT types and how they've changed over time, but today I want to present a slightly obscure, lesser understood NAT mode of ASA firewalls, one that has perhaps been more changed by time than any other NAT feature.
+The history of **NAT** ([network address translation](https://en.wikipedia.org/wiki/Network_address_translation)) behaviors on Cisco's ASA firewalls has certainly... *evolved* over the years. In a future blog post, I'll be covering the basics of specific NAT types and how they've changed over different code versions, but today I want to take a quick overview of *default* NAT behavior on Cisco’s firewalls and its evolution.
 
 ## NAT Control
 
-Enter **NAT Control**, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the device, but also on your mental model of how you might expect the firewall to function.
+Enter **NAT Control**, which over the course of its lifespan went from being a required default, to an optional feature, to ultimately being retired and disabled altogether. Not every firewall engineer may know about the (probably Cisco-specific) concept of NAT control, but like every major change to NAT behavior, it can have a significant effect not just on how traffic flows through the firewall, but also on your mental model of how you might expect a firewall to function.
 
 ## Origin
 
-So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco's **[PIX](https://en.wikipedia.org/wiki/Cisco_PIX)** firewall *required* NAT (or a NAT *exemption*) for *all* traffic passing between any two firewall interfaces, up through the maximum PIX OS version *6.3*.
+So, what is NAT control, exactly? Beginning with the predecessor to the Cisco ASA, Cisco's **[PIX](https://en.wikipedia.org/wiki/Cisco_PIX)** firewall *required NAT* (or a *NAT exemption*) for *all* traffic passing between any two firewall interfaces, up through the maximum PIX OS version *6.3*.
 
 What this means is that basically an IP packet couldn't pass through the firewall untouched unless a specific NAT exemption was created (essentially, a rule saying “don’t NAT this specific traffic”).
 
