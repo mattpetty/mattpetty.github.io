@@ -9,7 +9,7 @@ tags:
 ---
 ## Introduction
 
-> 📝 (Note: some [familiarity](https://mattpetty.github.io/2022/07/16/beginner-python-examples/) with Python is assumed for this article)
+> 📝 (Note: some [familiarity](https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/) with Python is assumed for this article)
 
 Since version 3.3 (released September 2012), Python has included an **ipaddress** module as part of its standard library (that is, it's included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.
 

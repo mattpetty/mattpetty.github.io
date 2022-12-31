@@ -135,7 +135,7 @@ Since version 3.3 (released September 2012), Python has included an ipaddress mo
 The official documentation is here, but read on for a basic summary of this module and some helpful uses for it.</description>
             <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
 <blockquote>
-<p>📝 (Note: some <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples/">familiarity</a> with Python is assumed for this article)</p>
+<p>📝 (Note: some <a href="https://mattpetty.github.io/2022/07/16/beginner-python-examples-for-network-engineers-part-1/">familiarity</a> with Python is assumed for this article)</p>
 </blockquote>
 <p>Since version 3.3 (released September 2012), Python has included an <strong>ipaddress</strong> module as part of its standard library (that is, it&rsquo;s included as part of any default Python 3.3+ installation). For a network engineer, this can be a remarkably useful and easy way to work with IP addresses and subnets in Python.</p>
 <p>The official documentation is <a href="https://docs.python.org/3/library/ipaddress.html">here</a>, but read on for a basic summary of this module and some helpful uses for it.</p>
