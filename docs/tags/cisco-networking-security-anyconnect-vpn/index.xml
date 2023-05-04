@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cisco, networking, security, anyconnect, vpn on Packets &amp; Python: Matt&#39;s Networking Blog</title>
+    <link>https://mattpetty.github.io/tags/cisco-networking-security-anyconnect-vpn/</link>
+    <description>Recent content in cisco, networking, security, anyconnect, vpn on Packets &amp; Python: Matt&#39;s Networking Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 May 2023 21:18:05 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/tags/cisco-networking-security-anyconnect-vpn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Quick Note About Cisco AnyConnect Split-Tunnel Access Lists</title>
+      <link>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</link>
+      <pubDate>Wed, 03 May 2023 21:18:05 -0400</pubDate>
+      
+      <guid>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</guid>
+      <description>Just a quick note when configuring access-lists for the split-tunneling feature of Cisco AnyConnect VPN Client. In order for the feature to actually work, the ACL must be Standard, not Extended.
+When configuring split-tunneling, you are given the choices of Tunnel All, Tunnel Network List, and Exclude Network List. The latter two options require specifying an ACL for what to tunnel or exclude.
+If you mistakenly use an extended access-list here, the AnyConnect VPN Client will revert to Tunnel All mode, even if you&amp;rsquo;ve chosen the Tunnel (or Exclude) Network List option.</description>
+    </item>
+    
+  </channel>
+</rss>

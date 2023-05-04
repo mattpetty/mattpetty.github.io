@@ -6,7 +6,18 @@
     <description>Recent content on Packets &amp; Python: Matt&#39;s Networking Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Dec 2022 23:42:00 -0500</lastBuildDate><atom:link href="https://mattpetty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 May 2023 21:18:05 -0400</lastBuildDate><atom:link href="https://mattpetty.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Quick Note About Cisco AnyConnect Split-Tunnel Access Lists</title>
+      <link>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</link>
+      <pubDate>Wed, 03 May 2023 21:18:05 -0400</pubDate>
+      
+      <guid>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</guid>
+      <description>Just a quick note when configuring access-lists for the split-tunneling feature of Cisco AnyConnect VPN Client. In order for the feature to actually work, the ACL must be Standard, not Extended.
+When configuring split-tunneling, you are given the choices of Tunnel All, Tunnel Network List, and Exclude Network List. The latter two options require specifying an ACL for what to tunnel or exclude.
+If you mistakenly use an extended access-list here, the AnyConnect VPN Client will revert to Tunnel All mode, even if you&amp;rsquo;ve chosen the Tunnel (or Exclude) Network List option.</description>
+    </item>
+    
     <item>
       <title>Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS</title>
       <link>https://mattpetty.github.io/2022/12/18/lets-encrypt-ssl-certificates-for-proxmox-ve-using-linode-dns/</link>

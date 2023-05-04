@@ -5,8 +5,24 @@
         <description>Recent content in Posts on Packets &amp; Python: Matt&#39;s Networking Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 18 Dec 2022 23:42:00 -0500</lastBuildDate>
+        <lastBuildDate>Wed, 03 May 2023 21:18:05 -0400</lastBuildDate>
         <atom:link href="https://mattpetty.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>A Quick Note About Cisco AnyConnect Split-Tunnel Access Lists</title>
+            <link>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</link>
+            <pubDate>Wed, 03 May 2023 21:18:05 -0400</pubDate>
+            
+            <guid>https://mattpetty.github.io/2023/05/03/a-quick-note-about-cisco-anyconnect-split-tunnel-access-lists/</guid>
+            <description>Just a quick note when configuring access-lists for the split-tunneling feature of Cisco AnyConnect VPN Client. In order for the feature to actually work, the ACL must be Standard, not Extended.
+When configuring split-tunneling, you are given the choices of Tunnel All, Tunnel Network List, and Exclude Network List. The latter two options require specifying an ACL for what to tunnel or exclude.
+If you mistakenly use an extended access-list here, the AnyConnect VPN Client will revert to Tunnel All mode, even if you&amp;rsquo;ve chosen the Tunnel (or Exclude) Network List option.</description>
+            <content type="html"><![CDATA[<p>Just a quick note when configuring access-lists for the <a href="https://www.cisco.com/c/en/us/support/docs/security/anyconnect-secure-mobility-client/119006-configure-anyconnect-00.html#anc9">split-tunneling</a> feature of Cisco AnyConnect VPN Client. In order for the feature to actually <em>work</em>, the ACL must be <strong>Standard</strong>, not Extended.</p>
+<p>When configuring split-tunneling, you are given the choices of <strong>Tunnel All</strong>, <strong>Tunnel Network List</strong>, and <strong>Exclude Network List</strong>. The latter two options require specifying an ACL for what to tunnel or exclude.</p>
+<p>If you mistakenly use an <em>extended</em> access-list here, the AnyConnect VPN Client will revert to <strong>Tunnel All</strong> mode, even if you&rsquo;ve chosen the <strong>Tunnel</strong> (or <strong>Exclude</strong>) <strong>Network List</strong> option. The ACL must be a <em>standard ACL</em>, because in essence, the ACL is just a list of routes to be advertised to the end-user&rsquo;s VPN client to determine what traffic to route through the AnyConnect virtual VPN adapter.</p>
+<p>This tidbit brought to you by a few hours of me pulling my hair out over an afternoon thinking I was going crazy, made worse by the ASDM&rsquo;s near-total lack of support for standard access-lists nowadays.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Let&#39;s Encrypt SSL Certificates for Proxmox VE Using Linode DNS</title>
